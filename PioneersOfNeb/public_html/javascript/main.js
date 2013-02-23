@@ -19,5 +19,5 @@ window.onload = window.onresize = function() {
     gameCanvasElement.style.top = (windowHeight - canvasHeight) / 2 + "px";
     gameCanvasElement.style.left = (windowWidth - canvasWidth) / 2 + "px";
     
-    findHexWithWidthAndHeight(200, 200);
+    findHexWithWidthAndHeight(400, 400);
 };

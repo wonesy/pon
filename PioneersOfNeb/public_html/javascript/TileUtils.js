@@ -44,8 +44,6 @@ function findHexWithWidthAndHeight(w, h)
 	Hexagon.Static.WIDTH = width;
 	Hexagon.Static.HEIGHT = height;
 	Hexagon.Static.SIDE = z;
-        
-        addHexToCanvasAndDraw(0,0);
 }
 
 function addHexToCanvasAndDraw(x, y)

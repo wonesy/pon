@@ -11,13 +11,15 @@ window.onload = window.onresize = function() {
     var windowWidth = window.innerWidth;
     var windowHeight = window.innerHeight;
 
-    var canvasWidth = windowWidth * 0.95;
-    var canvasHeight = windowHeight * 0.95;
+    var canvasWidth = windowWidth * 0.98;
+    var canvasHeight = windowHeight * 0.98;
     gameCanvasElement.style.position = "fixed";
     gameCanvasElement.setAttribute("width", canvasWidth);
     gameCanvasElement.setAttribute("height", canvasHeight);
     gameCanvasElement.style.top = (windowHeight - canvasHeight) / 2 + "px";
     gameCanvasElement.style.left = (windowWidth - canvasWidth) / 2 + "px";
     
-    findHexWithWidthAndHeight(400, 400);
+    Hexagon.Static.ORIENTATION = Hexagon.Orientation.Rotated;
+    drawBoardFrame(canvasWidth, canvasHeight);
+    
 };

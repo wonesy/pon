@@ -7,13 +7,27 @@ function drawBoardFrame(w, h) {
     var canvasWidth = w;
     var canvasHeight = h;
     
+    var sideLength = 0;
+    var hexWidth = 0;
+    var hexHeight = 0;
+    
     if (canvasWidth <= (2 / Math.sqrt(3)) * canvasHeight) {
-        findHexWithWidthAndHeight(canvasWidth, canvasWidth * (2 / Math.sqrt(3)));
+        hexWidth = canvasWidth;
+        hexHeight = canvasWidth * (Math.sqrt(3) / 2);
+        sideLength = getHexagonSideLengthFromWidthAndHeight(hexWidth, hexHeight);
     }
     else {
-        findHexWithWidthAndHeight(canvasHeight * (Math.sqrt(3) / 2), canvasHeight);
+        hexWidth = canvasHeight * (2 / Math.sqrt(3));
+        hexHeight = canvasHeight;
+        sideLength = getHexagonSideLengthFromWidthAndHeight(hexWidth, hexHeight);
     }
     
-    addHexToCanvasAndDraw((canvasWidth / 2) - (Hexagon.Static.WIDTH / 2),
-                          (canvasHeight / 2) - (Hexagon.Static.HEIGHT / 2));
+    //Hexagon(x, y, width, height, sidelength, orientation)
+    var boardHexagon = new Hexagon((canvasWidth / 2) - (hexWidth / 2),
+                                   (canvasHeight / 2) - (hexHeight / 2),
+                                   hexWidth,
+                                   hexHeight,
+                                   sideLength);
+    
+    addHexToCanvasAndDraw(boardHexagon);
 }

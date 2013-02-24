@@ -19,7 +19,5 @@ window.onload = window.onresize = function() {
     gameCanvasElement.style.top = (windowHeight - canvasHeight) / 2 + "px";
     gameCanvasElement.style.left = (windowWidth - canvasWidth) / 2 + "px";
     
-    Hexagon.Static.ORIENTATION = Hexagon.Orientation.Rotated;
-    drawBoardFrame(canvasWidth, canvasHeight);
-    
+    drawBoardFrame(canvasWidth, canvasHeight);  
 };

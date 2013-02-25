@@ -7,6 +7,10 @@ function Board(canvasWidth, canvasHeight) {
     
     this.Tiles = [];
     
+    for(var i = 0; i < 37; i++) {
+        this.Tiles.push(new Tile(null,null,null,null,null,i));
+    }
+    
     this.sizeBoard(canvasWidth,canvasHeight);
 };
 
@@ -15,8 +19,9 @@ Board.prototype.sizeBoard = function(canvasWidth, canvasHeight) {
     var tileWidth = tileHeight * (2 / Math.sqrt(3));
     var tileSide = getTileSideLengthFromWidthAndHeight(tileWidth, tileHeight);
     
-    this.Tiles.length = 0;
+    //this.Tiles.length = 0;
     
+    var tileCount = 0;
     var startingPos = 0;    // 
     var columnXPos = (canvasWidth/2 - (2*tileWidth + 3/2*tileSide));     // column's X-coordinate position
     
@@ -24,34 +29,42 @@ Board.prototype.sizeBoard = function(canvasWidth, canvasHeight) {
         // FIRST and SEVENTH (last) rows
         if (col == 0 || col == 6) {
             startingPos = tileHeight * 1.5;
-            for (var i = 0; i < 4; i++) {
+            for (var i = tileCount; i < tileCount+4; i++) {
                 // (x, y, width, height, sidelength, id)
-                this.Tiles.push(new Tile(columnXPos, startingPos + (i * tileHeight), tileWidth, tileHeight, tileSide, i));
+                this.Tiles[i].resizePoints(columnXPos, startingPos + ((i-tileCount) * tileHeight), tileWidth, tileHeight, tileSide);
+                //this.Tiles.push(new Tile(columnXPos, startingPos + (i * tileHeight), tileWidth, tileHeight, tileSide, i));
             }
+            tileCount += 4;
         }
         // SECOND and SIXTH rows
         else if (col == 1 || col == 5) {
             startingPos = tileHeight;
-            for (var i = 0; i < 5; i++) { 
+            for (var i = tileCount; i < tileCount+5; i++) { 
                 // (x, y, width, height, sidelength, id)
-                this.Tiles.push(new Tile(columnXPos, startingPos + (i * tileHeight), tileWidth, tileHeight, tileSide, i));
+                this.Tiles[i].resizePoints(columnXPos, startingPos + ((i-tileCount) * tileHeight), tileWidth, tileHeight, tileSide);
+                //this.Tiles.push(new Tile(columnXPos, startingPos + (i * tileHeight), tileWidth, tileHeight, tileSide, i));
             }
+            tileCount += 5;
         }
         // THIRD and FIFTH rows
         else if (col == 2 || col == 4) {
             startingPos = tileHeight * 0.5;
-            for (var i = 0; i < 6; i++) {
+            for (var i = tileCount; i < tileCount+6; i++) {
                 // (x, y, width, height, sidelength, id)
-                this.Tiles.push(new Tile(columnXPos, startingPos + (i * tileHeight), tileWidth, tileHeight, tileSide, i));
+                this.Tiles[i].resizePoints(columnXPos, startingPos + ((i-tileCount) * tileHeight), tileWidth, tileHeight, tileSide);
+                //this.Tiles.push(new Tile(columnXPos, startingPos + (i * tileHeight), tileWidth, tileHeight, tileSide, i));
             }
+            tileCount += 6;
         }
         // FOURTH (middle) row
         else {
             startingPos = 0;
-            for (var i = 0; i < 7; i++) {
+            for (var i = tileCount; i < tileCount+7; i++) {
                 // (x, y, width, height, sidelength, id)
-                this.Tiles.push(new Tile(columnXPos, startingPos + (i * tileHeight), tileWidth, tileHeight, tileSide, i));
+                this.Tiles[i].resizePoints(columnXPos, startingPos + ((i-tileCount) * tileHeight), tileWidth, tileHeight, tileSide);
+                //this.Tiles.push(new Tile(columnXPos, startingPos + (i * tileHeight), tileWidth, tileHeight, tileSide, i));
             }
+            tileCount += 7;
         }
         
         columnXPos += (tileWidth - 0.5*tileSide);   // increase the x pos
@@ -64,7 +77,7 @@ Board.prototype.sizeBoard = function(canvasWidth, canvasHeight) {
  */
 Board.prototype.draw = function(ctx) {
 
-    for (var i = 0; i < this.Tiles.length; i++) {
+    for (var i = 0; i < 37; i++) {
         this.Tiles[i].draw(ctx);
     }
 };

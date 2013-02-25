@@ -14,20 +14,20 @@ function drawBoardFrame(w, h) {
     if (canvasWidth <= (2 / Math.sqrt(3)) * canvasHeight) {
         hexWidth = canvasWidth;
         hexHeight = canvasWidth * (Math.sqrt(3) / 2);
-        sideLength = getHexagonSideLengthFromWidthAndHeight(hexWidth, hexHeight);
+        sideLength = getTileSideLengthFromWidthAndHeight(hexWidth, hexHeight);
     }
     else {
         hexWidth = canvasHeight * (2 / Math.sqrt(3));
         hexHeight = canvasHeight;
-        sideLength = getHexagonSideLengthFromWidthAndHeight(hexWidth, hexHeight);
+        sideLength = getTileSideLengthFromWidthAndHeight(hexWidth, hexHeight);
     }
     
     //Hexagon(x, y, width, height, sidelength, orientation)
-    var boardHexagon = new Hexagon((canvasWidth / 2) - (hexWidth / 2),
+    var boardHexagon = new Tile((canvasWidth / 2) - (hexWidth / 2),
                                    (canvasHeight / 2) - (hexHeight / 2),
                                    hexWidth,
                                    hexHeight,
                                    sideLength);
     
-    addHexToCanvasAndDraw(boardHexagon);
+    addTileToCanvasAndDraw(boardHexagon);
 }

@@ -20,7 +20,6 @@ window.onload = function() {
     gameCanvasElement.style.left = (windowWidth - canvasWidth) / 2 + "px";
     
     globalGameBoard = new Board(canvasWidth, canvasHeight);
-    
     globalGameBoard.draw(gameCanvasContext);
 };
 
@@ -40,5 +39,6 @@ window.onresize = function() {
     gameCanvasElement.style.top = (windowHeight - canvasHeight) / 2 + "px";
     gameCanvasElement.style.left = (windowWidth - canvasWidth) / 2 + "px";
     
+    globalGameBoard.sizeBoard(canvasWidth, canvasHeight);
     globalGameBoard.draw(gameCanvasContext);
 };

@@ -17,7 +17,7 @@ function Point(x, y) {
  * @param {number} height Height of tile.
  * @param {number} sidelength Sidelength of tile.
  */
-function Tile(x, y, width, height, sidelength) {
+function Tile(x, y, width, height, sidelength, id) {
     this.Points = [];
     var x1 = null;
     var y1 = null;

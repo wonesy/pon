@@ -17,10 +17,54 @@ Board.prototype.sizeBoard = function(canvasWidth, canvasHeight) {
     
     this.Tiles.length = 0;
     
+    var startingPos = tileHeight * 1.5;
+    for (var i=0; i < 4; i++)
+    { 
+        // (x, y, width, height, sidelength, id)
+        this.Tiles.push(new Tile(0, startingPos + (i * tileHeight), tileWidth, tileHeight, tileSide, i));
+    }
+    
+    var startingPos = tileHeight;
+    for (var i=0; i < 5; i++)
+    { 
+        // (x, y, width, height, sidelength, id)
+        this.Tiles.push(new Tile(tileWidth - (0.5 * tileSide), startingPos + (i * tileHeight), tileWidth, tileHeight, tileSide, i));
+    }
+    
+    var startingPos = tileHeight * 0.5;
+    for (var i=0; i < 6; i++)
+    { 
+        // (x, y, width, height, sidelength, id)
+        this.Tiles.push(new Tile(tileWidth + tileSide, startingPos + (i * tileHeight), tileWidth, tileHeight, tileSide, i));
+    }
+    
+    var startingPos = 0;
     for (var i=0; i < 7; i++)
     { 
         // (x, y, width, height, sidelength, id)
-        this.Tiles.push(new Tile(0, i * tileHeight, tileWidth, tileHeight, tileSide, i));
+        this.Tiles.push(new Tile((tileWidth * 2) + (0.5 * tileSide), startingPos + (i * tileHeight), tileWidth, tileHeight, tileSide, i));
+    }
+    
+    var startingPos = tileHeight * 0.5;
+    for (var i=0; i < 6; i++)
+    { 
+        // (x, y, width, height, sidelength, id)
+        this.Tiles.push(new Tile((tileWidth * 2) + (2 * tileSide), startingPos + (i * tileHeight), tileWidth, tileHeight, tileSide, i));
+    }
+    
+        
+    var startingPos = tileHeight;
+    for (var i=0; i < 5; i++)
+    { 
+        // (x, y, width, height, sidelength, id)
+        this.Tiles.push(new Tile((tileWidth * 2) + (3.5 * tileSide), startingPos + (i * tileHeight), tileWidth, tileHeight, tileSide, i));
+    }
+    
+    var startingPos = tileHeight * 1.5;
+    for (var i=0; i < 4; i++)
+    { 
+        // (x, y, width, height, sidelength, id)
+        this.Tiles.push(new Tile((tileWidth * 3) + (3 * tileSide), startingPos + (i * tileHeight), tileWidth, tileHeight, tileSide, i));
     }
 }
 

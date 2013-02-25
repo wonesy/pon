@@ -4,16 +4,21 @@ var RESOURCE = {
      SHEEP: {val: 2, imgPath: "images/tile_sheep.png"},
      WHEAT: {val: 3, imgPath: "images/tile_wheat.png"},
        ORE: {val: 4, imgPath: "images/tile_ore.png"},
-    DESERT: {val: 5, imgPath: "images/tile_desert.png"},
+    DESERT: {val: 5, imgPath: "images/tile_desert_2.png"},
        SEA: {val: 6, imgPath: "images/tile_sea.png"}
 };
 
 // in the same order as the enum above... exluding SEA
 var resourceCount = [ 3, 4, 4, 4, 3, 1];
 
+// in this order -- 2,3,4,5,6,8,9,10,11,12
+var rollValCount = [1,2,2,2,2,2,2,2, 2, 1];
+
 /**
  * A Point is simply x and y coordinates
  * @constructor
+ * @param {number} x x-coordinate
+ * @param {number} y y-coordinate
  */
 function Point(x, y) {
 	this.X = x;
@@ -34,6 +39,8 @@ function Tile(x, y, width, height, sidelength, id) {
     this.Points = [];
     this.ResourceType = RESOURCE.WOOD;
     this.Id = id;
+    this.RollValue = 0;
+    
     this.x = x; 
     this.y = y; 
     this.width = width;
@@ -74,6 +81,10 @@ Tile.prototype.defineResource = function() {
         resourceCount[randomNumber]--;
     }
 };
+
+Tile.prototype.assignRollValue = function() {
+    
+}
 
 Tile.prototype.resizePoints = function(x, y, width, height, sidelength) {
     this.Points = [];

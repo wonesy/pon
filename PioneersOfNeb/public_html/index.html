@@ -7,6 +7,8 @@ and open the template in the editor.
     <head>
         <title></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="game.css" />
+        
         <script type="text/javascript" src="javascript/main.js"></script>
         <script type="text/javascript" src="javascript/Tile.js"></script>
         <script type="text/javascript" src="javascript/TileUtils.js"></script>
@@ -14,6 +16,13 @@ and open the template in the editor.
         <script type="text/javascript" src="javascript/BoardUtils.js"></script>
     </head>
     <body>
-        <canvas id="gameCanvas" width="100" height="100"></canvas>
+        <div id="container">
+            <div id="chat_container">
+                <!-- chat shit -->
+            </div>
+            <div id="canvas_container">
+                <canvas id="gameCanvas" width="100" height="100"></canvas>
+            </div> <!-- END CANVAS_CONTAINER -->
+        </div> <!-- END CONTAINER -->
     </body>
 </html>

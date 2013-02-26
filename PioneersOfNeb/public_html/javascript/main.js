@@ -8,8 +8,8 @@ window.onload = function() {
     var gameCanvasElement = document.getElementById("gameCanvas");
     var gameCanvasContext = gameCanvasElement.getContext('2d');
 
-    var windowWidth = window.innerWidth;
-    var windowHeight = window.innerHeight;
+    var windowWidth = document.getElementById("canvas_container").offsetWidth;
+    var windowHeight = document.getElementById("canvas_container").offsetHeight;
 
     var canvasWidth = windowWidth * 0.98;
     var canvasHeight = windowHeight * 0.98;
@@ -28,8 +28,8 @@ window.onresize = function() {
     var gameCanvasElement = document.getElementById("gameCanvas");
     var gameCanvasContext = gameCanvasElement.getContext('2d');
 
-    var windowWidth = window.innerWidth;
-    var windowHeight = window.innerHeight;
+    var windowWidth = document.getElementById("canvas_container").offsetWidth;
+    var windowHeight = document.getElementById("canvas_container").offsetHeight;
 
     var canvasWidth = windowWidth * 0.98;
     var canvasHeight = windowHeight * 0.98;

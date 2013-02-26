@@ -1,0 +1,30 @@
+/* 
+    Document   : game.css
+    Created on : Feb 25, 2013, 2:18:57 PM
+    Author     : camomile
+    Description:
+        Purpose of the stylesheet follows.
+*/
+body,html {
+    height:100%;
+    overflow-y: hidden;
+}
+    
+#container {
+    height: 100%;
+    
+}
+
+#chat_container {
+    float: left;
+    width: 250px;
+    height: 97%;
+    border: 2px dashed #00f
+}
+
+#canvas_container{
+    position: relative;
+    overflow: hidden;
+    height: 97%;
+    border: 2px dashed #f0f
+}

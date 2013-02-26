@@ -22,8 +22,8 @@ Board.prototype.sizeBoard = function(canvasWidth, canvasHeight) {
     //this.Tiles.length = 0;
     
     var tileCount = 0;
-    var startingPos = 0;    // 
-    var columnXPos = (canvasWidth/2 - (2*tileWidth + 3/2*tileSide));     // column's X-coordinate position
+    var startingPos = 0;
+    var columnXPos = (canvasWidth - (4*tileWidth + 3*tileSide))/2;//(2*tileWidth + 3/2*tileSide);
     
     for (var col = 0; col < 7; col++) {
         // FIRST and SEVENTH (last) rows

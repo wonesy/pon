@@ -8,7 +8,7 @@ var io = require('socket.io').listen(server);
 
 // routing
 app.get('/', function (req, res) {
-    res.sendfile(__dirname + '/index.html');
+    res.sendfile(__dirname + '../PioneersOfNeb/public_html/index.html');
 });
 
 // usernames which are currently connected to the chat

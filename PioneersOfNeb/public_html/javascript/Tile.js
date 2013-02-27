@@ -4,7 +4,7 @@ var RESOURCE = {
      SHEEP: {val: 2, imgPath: "images/tile_sheep.png"},
      WHEAT: {val: 3, imgPath: "images/tile_wheat.png"},
        ORE: {val: 4, imgPath: "images/tile_ore.png"},
-    DESERT: {val: 5, imgPath: "images/tile_desert_2.png"},
+    DESERT: {val: 5, imgPath: "images/tile_desert.png"},
        SEA: {val: 6, imgPath: "images/tile_sea.png"}
 };
 
@@ -113,7 +113,7 @@ Tile.prototype.resizePoints = function(x, y, width, height, sidelength) {
  */
 Tile.prototype.draw = function(ctx) {
 
-    ctx.strokeStyle = "black";
+    ctx.strokeStyle = "tan";
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(this.Points[0].X, this.Points[0].Y);

@@ -5,24 +5,32 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html>
     <head>
-        <title></title>
+        <title>Pioneers of Neb</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="game.css" />
-        
         <script type="text/javascript" src="javascript/main.js"></script>
         <script type="text/javascript" src="javascript/Tile.js"></script>
         <script type="text/javascript" src="javascript/TileUtils.js"></script>
         <script type="text/javascript" src="javascript/Board.js"></script>
         <script type="text/javascript" src="javascript/BoardUtils.js"></script>
+        <script type="text/javascript" src="javascript/BoardUtils.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
     </head>
     <body>
         <div id="container">
             <div id="chat_container">
-                <!-- chat shit -->
+                <div id="conversation">
+                    
+                </div>
+                <div id="myChat">
+                    <input id="data" />
+                    <input type="button" id="datasend" value="send" />
+                </div>
             </div>
             <div id="canvas_container">
                 <canvas id="gameCanvas"></canvas>
-            </div> <!-- END CANVAS_CONTAINER -->
+            </div>
         </div> <!-- END CONTAINER -->
     </body>
 </html>

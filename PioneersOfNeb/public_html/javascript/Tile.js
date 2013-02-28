@@ -84,13 +84,8 @@ Tile.prototype.defineResource = function() {
 };
 
 Tile.prototype.assignRollValue = function() {
-<<<<<<< HEAD
-    // 
 }
-=======
-    
-};
->>>>>>> 1794301ce90c88b82dd229949e0a8a0229f873dc
+
 
 Tile.prototype.resizePoints = function(x, y, width, height, sidelength) {
     this.Points = [];

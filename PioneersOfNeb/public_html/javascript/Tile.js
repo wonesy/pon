@@ -8,11 +8,24 @@ var RESOURCE = {
        SEA: {val: 6, imgPath: "images/tile_sea.png"}
 };
 
-// in the same order as the enum above... exluding SEA
-var resourceCount = [ 3, 4, 4, 4, 3, 1];
+var ROLL = {
+       TWO: {val: 0, imgPath: "images/rollvalue_02.png"},
+     THREE: {val: 1, imgPath: "images/rollvalue_03.png"},
+      FOUR: {val: 2, imgPath: "images/rollvalue_04.png"},
+      FIVE: {val: 3, imgPath: "images/rollvalue_05.png"},
+       SIX: {val: 4, imgPath: "images/rollvalue_06.png"},
+     EIGHT: {val: 5, imgPath: "images/rollvalue_08.png"},
+      NINE: {val: 6, imgPath: "images/rollvalue_09.png"},
+       TEN: {val: 7, imgPath: "images/rollvalue_10.png"},
+    ELEVEN: {val: 8, imgPath: "images/rollvalue_11.png"},
+    TWELVE: {val: 9, imgPath: "images/rollvalue_12.png"}
+};
 
-// in this order -- 2,3,4,5,6,8,9,10,11,12
-var rollValCount = [1,2,2,2,2,2,2,2, 2, 1];
+// in the same order as the enum above... exluding SEA
+var resourceCount = [3, 4, 4, 4, 3, 1];
+
+// in this order --   2, 3, 4, 5, 6, 8, 9,10,11,12
+var rollValueCount = [1, 2, 2, 2, 2, 2, 2, 2, 2, 1];
 
 /**
  * A Point is simply x and y coordinates
@@ -37,9 +50,9 @@ function Point(x, y) {
  */
 function Tile(x, y, width, height, sidelength, id) {
     this.Points = [];
+    this.RollValue = ROLL.TWO;
     this.ResourceType = RESOURCE.WOOD;
     this.Id = id;
-    this.RollValue = 0;
     this.Vertices = [];
     
     this.x = x; 
@@ -80,17 +93,45 @@ Tile.prototype.defineResource = function() {
             this.ResourceType = RESOURCE.DESERT;
             
         resourceCount[randomNumber]--;
+        
+        // Setup roll value if not desert
+        if (randomNumber !== 5) {
+            this.assignRollValue();
+        }
     }
 };
 
 Tile.prototype.assignRollValue = function() {
-<<<<<<< HEAD
-    // 
-}
-=======
     
+        var randomNumber = Math.floor(Math.random()*10);
+        
+        while (rollValueCount[randomNumber] <= 0) {
+            randomNumber = Math.floor(Math.random()*10);
+        }
+        
+        if (randomNumber === 0)
+            this.RollValue = ROLL.TWO;
+        else if (randomNumber === 1)
+            this.RollValue = ROLL.THREE;
+        else if (randomNumber === 2)
+            this.RollValue = ROLL.FOUR;
+        else if (randomNumber === 3)
+            this.RollValue = ROLL.FIVE;
+        else if (randomNumber === 4)
+            this.RollValue = ROLL.SIX;
+        else if (randomNumber === 5)
+            this.RollValue = ROLL.EIGHT;
+        else if (randomNumber === 6)
+            this.RollValue = ROLL.NINE;
+        else if (randomNumber === 7)
+            this.RollValue = ROLL.TEN;
+        else if (randomNumber === 8)
+            this.RollValue = ROLL.ELEVEN;
+        else if (randomNumber === 9)
+            this.RollValue = ROLL.TWELVE;
+            
+        rollValueCount[randomNumber]--;
 };
->>>>>>> 1794301ce90c88b82dd229949e0a8a0229f873dc
 
 Tile.prototype.resizePoints = function(x, y, width, height, sidelength) {
     this.Points = [];
@@ -141,7 +182,7 @@ Tile.prototype.draw = function(ctx) {
     
     var rollValueImage = new Image();
     if (!((this.seaIDs.indexOf(this.Id) > -1) || this.ResourceType === RESOURCE.DESERT)) {
-        rollValueImage.src = "images/rollvalue_2.png";
+        rollValueImage.src = this.RollValue.imgPath;
         var rollValueWidth = this.height / 2.5;
         var rollValueHeight = this.height / 2.5;
         var rollValueX = this.x + (this.height * ((1 / Math.sqrt(3)) - 0.2));

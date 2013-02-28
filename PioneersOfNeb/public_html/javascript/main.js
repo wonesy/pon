@@ -11,7 +11,7 @@ window.onload = function() {
     var gameCanvasContext = gameCanvasElement.getContext('2d');
     
     gameCanvasElement.setAttribute("width", gameCanvasElement.parentNode.offsetWidth);
-    gameCanvasElement.setAttribute("height", gameCanvasElement.parentNode.offsetHeight*0.95);
+    gameCanvasElement.setAttribute("height", gameCanvasElement.parentNode.offsetHeight);
     
     globalGameBoard = new Board(gameCanvasElement.width, gameCanvasElement.height);
     globalGameBoard.draw(gameCanvasContext);
@@ -23,7 +23,7 @@ window.onresize = function() {
     var gameCanvasContext = gameCanvasElement.getContext('2d');
     
     gameCanvasElement.setAttribute("width", gameCanvasElement.parentNode.offsetWidth);
-    gameCanvasElement.setAttribute("height", gameCanvasElement.parentNode.offsetHeight*0.95);
+    gameCanvasElement.setAttribute("height", gameCanvasElement.parentNode.offsetHeight);
     
     globalGameBoard.sizeBoard(gameCanvasElement.width, gameCanvasElement.height);
     globalGameBoard.draw(gameCanvasContext);

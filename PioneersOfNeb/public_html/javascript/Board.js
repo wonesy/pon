@@ -20,14 +20,14 @@ function Board(canvasWidth, canvasHeight) {
 };
 
 Board.prototype.sizeBoard = function(canvasWidth, canvasHeight) {
-    var tileHeight = canvasHeight*0.95 / 7;  // total height of the board
+    var tileHeight = canvasHeight / 7;  // total height of the board
     var tileWidth = tileHeight * (2 / Math.sqrt(3));
     var tileSide = getTileSideLengthFromWidthAndHeight(tileWidth, tileHeight);
         
     //this.Tiles.length = 0;
     
     var tileCount = 0;
-    var topOfBoard = (canvasHeight - (7*tileHeight));
+    var topOfBoard = 0;//(canvasHeight - (7*tileHeight));
     var startingPos = 0;
     var columnXPos = (canvasWidth - (4*tileWidth + 3*tileSide))/2;
     

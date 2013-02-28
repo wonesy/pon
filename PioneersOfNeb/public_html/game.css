@@ -54,7 +54,7 @@ input {
 /**********************CANVAS***********************/
 /***************************************************/
 #canvas_container{
-    background-color: black;
+    background-color: #303030;
     position: relative;
     overflow: hidden;
     height: 100%;

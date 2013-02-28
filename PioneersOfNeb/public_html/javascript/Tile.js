@@ -40,6 +40,7 @@ function Tile(x, y, width, height, sidelength, id) {
     this.ResourceType = RESOURCE.WOOD;
     this.Id = id;
     this.RollValue = 0;
+    this.Vertices = [];
     
     this.x = x; 
     this.y = y; 
@@ -47,8 +48,8 @@ function Tile(x, y, width, height, sidelength, id) {
     this.height = height; 
     this.sidelength = sidelength;
     
-    this.resizePoints(x, y, width, height, sidelength);
     this.defineResource();
+    this.resizePoints(x, y, width, height, sidelength);
 };
 
 Tile.prototype.defineResource = function() {
@@ -83,7 +84,7 @@ Tile.prototype.defineResource = function() {
 };
 
 Tile.prototype.assignRollValue = function() {
-    
+    // 
 }
 
 Tile.prototype.resizePoints = function(x, y, width, height, sidelength) {
@@ -104,7 +105,7 @@ Tile.prototype.resizePoints = function(x, y, width, height, sidelength) {
     this.y = y; 
     this.width = width;
     this.height = height; 
-    this.sidelength = sidelength;
+    this.sidelength = sidelength;    
 };
 
 /**

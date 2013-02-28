@@ -10,7 +10,7 @@ window.onload = function() {
     var gameCanvasElement = document.getElementById("gameCanvas");
     var gameCanvasContext = gameCanvasElement.getContext('2d');
     
-    gameCanvasElement.setAttribute("width", gameCanvasElement.parentNode.offsetWidth*0.95);
+    gameCanvasElement.setAttribute("width", gameCanvasElement.parentNode.offsetWidth);
     gameCanvasElement.setAttribute("height", gameCanvasElement.parentNode.offsetHeight*0.95);
     
     globalGameBoard = new Board(gameCanvasElement.width, gameCanvasElement.height);
@@ -22,9 +22,9 @@ window.onresize = function() {
     var gameCanvasElement = document.getElementById("gameCanvas");
     var gameCanvasContext = gameCanvasElement.getContext('2d');
     
-    gameCanvasElement.setAttribute("width", gameCanvasElement.parentNode.offsetWidth*0.95);
+    gameCanvasElement.setAttribute("width", gameCanvasElement.parentNode.offsetWidth);
     gameCanvasElement.setAttribute("height", gameCanvasElement.parentNode.offsetHeight*0.95);
-
+    
     globalGameBoard.sizeBoard(gameCanvasElement.width, gameCanvasElement.height);
     globalGameBoard.draw(gameCanvasContext);
 };

@@ -3,7 +3,8 @@
 // Author: Tommy Pantano
 // Updated: 02/22/2012
 
-var globalGameBoard = null;
+//var globalGameBoard = null;
+var globalGame = null;
 
 window.onload = function() {
     console.log("on load");
@@ -13,8 +14,11 @@ window.onload = function() {
     gameCanvasElement.setAttribute("width", gameCanvasElement.parentNode.offsetWidth);
     gameCanvasElement.setAttribute("height", gameCanvasElement.parentNode.offsetHeight);
     
-    globalGameBoard = new Board(gameCanvasElement.width, gameCanvasElement.height);
-    globalGameBoard.draw(gameCanvasContext);
+    //globalGameBoard = new Board(gameCanvasElement.width, gameCanvasElement.height);
+    //globalGameBoard.draw(gameCanvasContext);
+    
+    globalGame = new Game(4, gameCanvasElement.width, gameCanvasElement.height);
+    globalGame.drawAll(gameCanvasContext);
 };
 
 window.onresize = function() {
@@ -25,6 +29,6 @@ window.onresize = function() {
     gameCanvasElement.setAttribute("width", gameCanvasElement.parentNode.offsetWidth);
     gameCanvasElement.setAttribute("height", gameCanvasElement.parentNode.offsetHeight);
     
-    globalGameBoard.sizeBoard(gameCanvasElement.width, gameCanvasElement.height);
-    globalGameBoard.draw(gameCanvasContext);
+    globalGame.sizeBoard(gameCanvasElement.width, gameCanvasElement.height);
+    globalGame.drawAll(gameCanvasContext);
 };

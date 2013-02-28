@@ -4,10 +4,10 @@
  * @constructor
  */
 function Board(canvasWidth, canvasHeight) {
-    
+    Math.seedrandom();
     this.Tiles = [];
     this.BoardVertices = [];
-    
+    console.log("new board", canvasWidth, canvasHeight);
     for(var i = 0; i < 37; i++) {
         this.Tiles.push(new Tile(null,null,null,null,null,i));
     }
@@ -23,7 +23,7 @@ Board.prototype.sizeBoard = function(canvasWidth, canvasHeight) {
     var tileHeight = canvasHeight / 7;  // total height of the board
     var tileWidth = tileHeight * (2 / Math.sqrt(3));
     var tileSide = getTileSideLengthFromWidthAndHeight(tileWidth, tileHeight);
-        
+    console.log("resizing");
     //this.Tiles.length = 0;
     
     var tileCount = 0;
@@ -202,3 +202,7 @@ Board.prototype.addVertex = function(Tile) {
             break;
     }
 };
+
+Board.prototype.drawHUD = function() {
+    
+}

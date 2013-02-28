@@ -52,10 +52,10 @@ function Tile(x, y, width, height, sidelength, id) {
 };
 
 Tile.prototype.defineResource = function() {
-    var seaIDs = [0,1,2,3,4,8,9,14,15,21,22,27,28,32,33,34,35,36];
+    this.seaIDs = [0,1,2,3,4,8,9,14,15,21,22,27,28,32,33,34,35,36];
     
     // if it is a sea tile
-    if (seaIDs.indexOf(this.Id) > -1) {
+    if (this.seaIDs.indexOf(this.Id) > -1) {
         this.ResourceType = RESOURCE.SEA;
     }
     else {
@@ -84,7 +84,7 @@ Tile.prototype.defineResource = function() {
 
 Tile.prototype.assignRollValue = function() {
     
-}
+};
 
 Tile.prototype.resizePoints = function(x, y, width, height, sidelength) {
     this.Points = [];
@@ -110,6 +110,7 @@ Tile.prototype.resizePoints = function(x, y, width, height, sidelength) {
 /**
  * draws this Hexagon to the canvas
  * @this {Hexagon}
+ * @param {context} ctx Gameboard Canvas Context
  */
 Tile.prototype.draw = function(ctx) {
 
@@ -125,13 +126,25 @@ Tile.prototype.draw = function(ctx) {
     ctx.closePath();
     ctx.stroke();
     
-    var image = new Image();
-    image.src = this.ResourceType.imgPath;
+    var resourceImage = new Image();
+    resourceImage.src = this.ResourceType.imgPath;
     var tileWidth = this.width;
     var tileHeight = this.height;
     var tileX = this.x;
     var tileY = this.y;
-    image.onload = function(){
-        ctx.drawImage(image, tileX, tileY, tileWidth, tileHeight);
+    
+    var rollValueImage = new Image();
+    if (!((this.seaIDs.indexOf(this.Id) > -1) || this.ResourceType === RESOURCE.DESERT)) {
+        rollValueImage.src = "images/rollvalue_2.png";
+        var rollValueWidth = this.height / 2.5;
+        var rollValueHeight = this.height / 2.5;
+        var rollValueX = this.x + (this.height * ((1 / Math.sqrt(3)) - 0.2));
+        var rollValueY = this.y + this.height * 0.3;
+    }
+    
+    resourceImage.onload = rollValueImage.onload = function(){
+        ctx.drawImage(resourceImage, tileX, tileY, tileWidth, tileHeight);
+        ctx.drawImage(rollValueImage, rollValueX, rollValueY, rollValueWidth, rollValueHeight);
     };
 };
+

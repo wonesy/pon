@@ -5,7 +5,16 @@ var RESOURCE = {
      WHEAT: {val: 3, imgPath: "images/tile_wheat.png"},
        ORE: {val: 4, imgPath: "images/tile_ore.png"},
     DESERT: {val: 5, imgPath: "images/tile_desert.png"},
-       SEA: {val: 6, imgPath: "images/tile_sea.png"}
+       SEA: {val: 6, imgPath: "images/tile_sea.png"},
+   WH_PORT: {val: 7, imgPath: "images/wheat_port.png"},
+    S_PORT: {val: 8, imgPath: "images/sheep_port.png"},
+    B_PORT: {val: 9, imgPath: "images/brick_port.png"},
+    O_PORT: {val: 10, imgPath: "images/ore_port.png"},
+   WO_PORT: {val: 11, imgPath: "images/wood_port.png"},
+THREEPORT1: {val: 12, imgPath: "images/3to1_port1.png"},
+THREEPORT2: {val: 13, imgPath: "images/3to1_port2.png"},
+THREEPORT3: {val: 14, imgPath: "images/3to1_port3.png"},
+THREEPORT4: {val: 15, imgPath: "images/3to1_port4.png"}
 };
 
 var ROLL = {
@@ -67,11 +76,32 @@ function Tile(x, y, width, height, sidelength, id) {
 };
 
 Tile.prototype.defineResource = function() {
-    this.seaIDs = [0,1,2,3,4,8,9,14,15,21,22,27,28,32,33,34,35,36];
+    this.seaIDs = [1,3,4,14,15,27,28,34,36];
+    this.portIDs = [0,2,8,9,21,22,32,33,35];
     
     // if it is a sea tile
     if (this.seaIDs.indexOf(this.Id) > -1) {
         this.ResourceType = RESOURCE.SEA;
+    }
+    else if (this.portIDs.indexOf(this.Id) > -1){
+        if (this.Id === 0)
+            this.ResourceType = RESOURCE.THREEPORT2;
+        if (this.Id === 2)
+            this.ResourceType = RESOURCE.O_PORT;
+        if (this.Id === 8)
+            this.ResourceType = RESOURCE.WH_PORT;
+        if (this.Id === 9)
+            this.ResourceType = RESOURCE.S_PORT;
+        if (this.Id === 21)
+            this.ResourceType = RESOURCE.THREEPORT4;
+        if (this.Id === 22)
+            this.ResourceType = RESOURCE.THREEPORT1;
+        if (this.Id === 32)
+            this.ResourceType = RESOURCE.WO_PORT;
+        if (this.Id === 33)
+            this.ResourceType = RESOURCE.THREEPORT3;
+        if (this.Id === 35)
+            this.ResourceType = RESOURCE.B_PORT;
     }
     else {
         var randomNumber = Math.floor(Math.random()*6);
@@ -182,7 +212,7 @@ Tile.prototype.draw = function(ctx) {
     var tileY = this.y;
     
     var rollValueImage = new Image();
-    if (!((this.seaIDs.indexOf(this.Id) > -1) || this.ResourceType === RESOURCE.DESERT)) {
+    if (!((this.seaIDs.indexOf(this.Id) > -1) || this.ResourceType === RESOURCE.DESERT || (this.portIDs.indexOf(this.Id)> -1))) {
         rollValueImage.src = this.RollValue.imgPath;
         var rollValueWidth = this.height / 2.5;
         var rollValueHeight = this.height / 2.5;

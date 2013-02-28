@@ -63,6 +63,7 @@ function Tile(x, y, width, height, sidelength, id) {
     
     this.defineResource();
     this.resizePoints(x, y, width, height, sidelength);
+    
 };
 
 Tile.prototype.defineResource = function() {

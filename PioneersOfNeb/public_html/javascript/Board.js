@@ -75,6 +75,10 @@ Board.prototype.sizeBoard = function(canvasWidth, canvasHeight) {
         
         columnXPos += (tileWidth - 0.5*tileSide);   // increase the x pos
     }
+    
+    for(var i = 0; i < 37; i++) {
+        this.addVertex(this.Tiles[i]);
+    }
 };
 
 /**
@@ -94,56 +98,104 @@ Board.prototype.recalcClickable = function() {
     }
 };
 
-Board.prototype.addVertices = function(Tile) {
+Board.prototype.addVertex = function(Tile) {
     switch(Tile.Id) {
         // FIRST row of resource tiles
         case 5:
-            this.BoardVertices[0] = Tile.Points[0];
-            this.BoardVertices[1] = Tile.Points[1];
-            this.BoardVertices[2] = Tile.Points[2];
-            this.BoardVertices[3] = Tile.Points[3];
-            this.BoardVertices[4] = Tile.Points[4];
-            this.BoardVertices[5] = Tile.Points[5];
+            this.BoardVertices[0].Point = Tile.Points[0];
+            this.BoardVertices[1].Point = Tile.Points[1];
+            this.BoardVertices[2].Point = Tile.Points[2];
+            this.BoardVertices[3].Point = Tile.Points[3];
+            this.BoardVertices[4].Point = Tile.Points[4];
+            this.BoardVertices[5].Point = Tile.Points[5];
             break;
         case 6:
+            this.BoardVertices[6].Point = Tile.Points[2];
+            this.BoardVertices[7].Point = Tile.Points[3];
+            this.BoardVertices[8].Point = Tile.Points[4];
+            this.BoardVertices[9].Point = Tile.Points[5];
             break;
         case 7:
+            this.BoardVertices[10].Point = Tile.Points[2];
+            this.BoardVertices[11].Point = Tile.Points[3];
+            this.BoardVertices[12].Point = Tile.Points[4];
+            this.BoardVertices[13].Point = Tile.Points[5];
             break;
         // SECOND row of resource tiles
         case 10:
+            this.BoardVertices[14].Point = Tile.Points[0];
+            this.BoardVertices[15].Point = Tile.Points[1];
+            this.BoardVertices[16].Point = Tile.Points[2];
+            this.BoardVertices[17].Point = Tile.Points[3];
             break;
         case 11:
+            this.BoardVertices[18].Point = Tile.Points[2];
+            this.BoardVertices[19].Point = Tile.Points[3];
             break;
         case 12:
+            this.BoardVertices[20].Point = Tile.Points[2];
+            this.BoardVertices[21].Point = Tile.Points[3];
             break;
         case 13:
+            this.BoardVertices[22].Point = Tile.Points[2];
+            this.BoardVertices[23].Point = Tile.Points[3];
+            this.BoardVertices[24].Point = Tile.Points[4];
             break;
         // THIRD row of resource tiles
         case 16:
+            this.BoardVertices[25].Point = Tile.Points[0];
+            this.BoardVertices[26].Point = Tile.Points[1];
+            this.BoardVertices[27].Point = Tile.Points[2];
+            this.BoardVertices[28].Point = Tile.Points[3];
             break;
         case 17:
+            this.BoardVertices[29].Point = Tile.Points[2];
+            this.BoardVertices[30].Point = Tile.Points[3];
             break;
         case 18:
+            this.BoardVertices[31].Point = Tile.Points[2];
+            this.BoardVertices[32].Point = Tile.Points[3];
             break;
         case 19:
+            this.BoardVertices[33].Point = Tile.Points[2];
+            this.BoardVertices[34].Point = Tile.Points[3];
             break;
         case 20:
+            this.BoardVertices[35].Point = Tile.Points[2];
+            this.BoardVertices[36].Point = Tile.Points[3];
+            this.BoardVertices[37].Point = Tile.Points[4];
             break;
         // FOURTH row of resource tiles
         case 23:
+            this.BoardVertices[38].Point = Tile.Points[1];
+            this.BoardVertices[39].Point = Tile.Points[2];
+            this.BoardVertices[40].Point = Tile.Points[3];
             break;
         case 24:
+            this.BoardVertices[41].Point = Tile.Points[2];
+            this.BoardVertices[42].Point = Tile.Points[3];
             break;
         case 25:
+            this.BoardVertices[43].Point = Tile.Points[2];
+            this.BoardVertices[44].Point = Tile.Points[3];
             break;
         case 26:
+            this.BoardVertices[45].Point = Tile.Points[2];
+            this.BoardVertices[46].Point = Tile.Points[3];
             break;
         // FIFTH row of resource tiles
         case 29:
+            this.BoardVertices[47].Point = Tile.Points[1];
+            this.BoardVertices[48].Point = Tile.Points[2];
+            this.BoardVertices[49].Point = Tile.Points[3];
             break;
         case 30:
+            this.BoardVertices[50].Point = Tile.Points[2];
+            this.BoardVertices[51].Point = Tile.Points[3];
             break;
         case 31:
+            this.BoardVertices[52].Point = Tile.Points[2];
+            this.BoardVertices[53].Point = Tile.Points[3];
             break;
         //////////////////////////////////
         default:

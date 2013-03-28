@@ -55,7 +55,7 @@ Player.prototype.drawBanner = function(ctx, canvasWidth, canvasHeight) {
     
     var bannerXPos;
     var bannerYPos;
-    var bannerWidth = 200;  // hard coded for testing only
+    var bannerWidth = 350;  // hard coded for testing only
     var bannerHeight = 200;
     console.log(this.Banner.imgPath);
     switch(this.Banner.val) {
@@ -64,11 +64,11 @@ Player.prototype.drawBanner = function(ctx, canvasWidth, canvasHeight) {
             bannerYPos = 0;
             break;
         case 1:
-            bannerXPos = canvasWidth-200;
+            bannerXPos = canvasWidth-350;
             bannerYPos = 0;
             break;
         case 2:
-            bannerXPos = canvasWidth-200;
+            bannerXPos = canvasWidth-350;
             bannerYPos = canvasHeight-200;
             break;
         case 3:

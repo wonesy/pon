@@ -14,6 +14,15 @@ body,html {
 #container {
     height: 100%;
 }
+#alpha
+{
+    position: absolute;
+    visibility: hidden;
+    height: auto;
+    width: auto;
+    white-space:nowrap;
+    font: 1.5em helvetica;
+}
 
 /***************************************************/
 /**********************CHAT*************************/

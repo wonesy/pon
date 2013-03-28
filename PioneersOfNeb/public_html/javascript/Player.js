@@ -11,6 +11,7 @@ var PLAYERBANNER = {
 
 function Player(id) {
     this.Id = id;
+    this.Name = "Player " + (id+1);
     this.Banner = null;
     // Resource Cards
     this.Wood = 0;
@@ -50,34 +51,73 @@ Player.prototype.setBanner = function() {
 
 Player.prototype.drawBanner = function(ctx, canvasWidth, canvasHeight) {
     // sets up the information within the HUD
+    var playerName = this.Name;
+    
     var bannerImage = new Image();
     bannerImage.src = this.Banner.imgPath;
     
+    var avatarImage = new Image();
+    avatarImage.src = "images/tommy.jpg";
+    
     var bannerXPos;
     var bannerYPos;
-    var bannerWidth = 350;  // hard coded for testing only
-    var bannerHeight = 200;
-    console.log(this.Banner.imgPath);
+    var bannerWidth = 0.33*canvasWidth;
+    var bannerHeight = 4/7*bannerWidth;
+    
+    var avatarXPos;
+    var avatarYPos;
+    var avatarSideLength = (1/8)*bannerWidth;
+    var avatarBorder = (10/185)*bannerWidth;
+    
+    var nameXPos;
+    var nameYPos;
+    
+    // getting the width (in pixels) of the player's name
+    document.getElementById('alpha').innerHTML = playerName;
+    var alpha = document.getElementById("alpha");
+    var alphaHeight = (alpha.clientHeight+1);
+    var alphaWidth = (alpha.clientWidth+1);
+      
     switch(this.Banner.val) {
         case 0:
             bannerXPos = 0;
             bannerYPos = 0;
+            avatarXPos = avatarBorder;
+            avatarYPos = avatarBorder;
+            nameXPos = 1.5*avatarBorder + avatarSideLength;
+            nameYPos = avatarBorder + 0.5*avatarSideLength;
             break;
         case 1:
-            bannerXPos = canvasWidth-350;
+            bannerXPos = canvasWidth-bannerWidth;
             bannerYPos = 0;
+            avatarXPos = canvasWidth - avatarBorder - avatarSideLength;
+            avatarYPos = avatarBorder;
+            nameXPos = canvasWidth - 1.5*avatarBorder - avatarSideLength - alphaWidth;
+            nameYPos = avatarBorder + 0.5*avatarSideLength;
             break;
         case 2:
-            bannerXPos = canvasWidth-350;
-            bannerYPos = canvasHeight-200;
+            bannerXPos = canvasWidth-bannerWidth;
+            bannerYPos = canvasHeight-bannerHeight;
+            avatarXPos = canvasWidth - avatarBorder - avatarSideLength;
+            avatarYPos = canvasHeight - avatarBorder - avatarSideLength;
+            nameXPos = canvasWidth - 1.5*avatarBorder - avatarSideLength - alphaWidth;
+            nameYPos = canvasHeight - avatarBorder - alphaHeight;
             break;
         case 3:
             bannerXPos = 0;
-            bannerYPos = canvasHeight-200;
+            bannerYPos = canvasHeight-bannerHeight;
+            avatarXPos = avatarBorder;
+            avatarYPos = canvasHeight - avatarBorder - avatarSideLength;
+            nameXPos = 1.5*avatarBorder + avatarSideLength;
+            nameYPos = canvasHeight - avatarBorder - alphaHeight;
             break;
     }
     
-    bannerImage.onload = function() {
+    bannerImage.onload = avatarImage.onload = function() {
         ctx.drawImage(bannerImage, bannerXPos, bannerYPos, bannerWidth, bannerHeight);
+        ctx.drawImage(avatarImage, avatarXPos, avatarYPos, avatarSideLength, avatarSideLength);
+        ctx.font = "1.5em helvetica";
+        ctx.textBaseline = "middle";
+        ctx.fillText(playerName, nameXPos, nameYPos);
     };
 };

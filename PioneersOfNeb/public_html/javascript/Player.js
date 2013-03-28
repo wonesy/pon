@@ -3,10 +3,10 @@
  * and open the template in the editor.
  */
 var PLAYERBANNER = {
-     ZERO: {val: 0, imgPath: "images/hud_player0.png"},
-      ONE: {val: 1, imgPath: "images/hud_player1.png"},
-      TWO: {val: 2, imgPath: "images/hud_player2.png"},
-    THREE: {val: 3, imgPath: "images/hud_player3.png"}
+     ZERO: {val: 0, imgPath: "images/banner_p0.png"},
+      ONE: {val: 1, imgPath: "images/banner_p1.png"},
+      TWO: {val: 2, imgPath: "images/banner_p2.png"},
+    THREE: {val: 3, imgPath: "images/banner_p3.png"}
 };
 
 function Player(id) {
@@ -48,16 +48,36 @@ Player.prototype.setBanner = function() {
     }
 };
 
-Player.prototype.setHUD = function(canvasWidth, canvasHeight) {
+Player.prototype.drawBanner = function(ctx, canvasWidth, canvasHeight) {
     // sets up the information within the HUD
-    var HUDImage = new Image();
-    HUDImage.src = this.Banner.imgPath;
-    var tileWidth = this.width;
-    var tileHeight = this.height;
-    var tileX = this.x;
-    var tileY = this.y
+    var bannerImage = new Image();
+    bannerImage.src = this.Banner.imgPath;
     
-    HUDImage.onload = function() {
-        ctx.drawImage(resourceImage, tileX, tileY, tileWidth, tileHeight);
+    var bannerXPos;
+    var bannerYPos;
+    var bannerWidth = 200;  // hard coded for testing only
+    var bannerHeight = 200;
+    console.log(this.Banner.imgPath);
+    switch(this.Banner.val) {
+        case 0:
+            bannerXPos = 0;
+            bannerYPos = 0;
+            break;
+        case 1:
+            bannerXPos = canvasWidth-200;
+            bannerYPos = 0;
+            break;
+        case 2:
+            bannerXPos = canvasWidth-200;
+            bannerYPos = canvasHeight-200;
+            break;
+        case 3:
+            bannerXPos = 0;
+            bannerYPos = canvasHeight-200;
+            break;
+    }
+    
+    bannerImage.onload = function() {
+        ctx.drawImage(bannerImage, bannerXPos, bannerYPos, bannerWidth, bannerHeight);
     };
 };

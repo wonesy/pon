@@ -30,9 +30,9 @@ Game.prototype.initPlayers = function() {
     }
 };
 
-Game.prototype.drawHUD = function() {
+Game.prototype.drawHUD = function(ctx) {
     for(var i = 0; i < this.numPlayers; i++) {
-        Players[i].setHUD(this.width, this.height);
+        this.Players[i].drawBanner(ctx, this.width, this.height);
     }
 };
 
@@ -43,7 +43,7 @@ Game.prototype.drawHUD = function() {
  */
 Game.prototype.drawAll = function(ctx) {
     this.Board.draw(ctx);
-    this.drawHUD();
+    this.drawHUD(ctx);
 };
 
 /*

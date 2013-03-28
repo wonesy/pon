@@ -220,8 +220,12 @@ Tile.prototype.draw = function(ctx) {
         var rollValueY = this.y + this.height * 0.3;
     }
     
-    resourceImage.onload = rollValueImage.onload = function(){
+    resourceImage.onload = function(){
         ctx.drawImage(resourceImage, tileX, tileY, tileWidth, tileHeight);
+        
+    };
+    
+    rollValueImage.onload = function(){
         ctx.drawImage(rollValueImage, rollValueX, rollValueY, rollValueWidth, rollValueHeight);
     };
 };

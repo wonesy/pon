@@ -5,11 +5,13 @@
 
 //var globalGameBoard = null;
 var globalGame = null;
+var gameCanvasElement = null;
+var gameCanvasContext = null;
 
 window.onload = function() {
     console.log("on load");
-    var gameCanvasElement = document.getElementById("gameCanvas");
-    var gameCanvasContext = gameCanvasElement.getContext('2d');
+    gameCanvasElement = document.getElementById("gameCanvas");
+    gameCanvasContext = gameCanvasElement.getContext('2d');
     
     gameCanvasElement.setAttribute("width", gameCanvasElement.parentNode.offsetWidth);
     gameCanvasElement.setAttribute("height", gameCanvasElement.parentNode.offsetHeight);
@@ -19,12 +21,14 @@ window.onload = function() {
     
     globalGame = new Game(4, gameCanvasElement.width, gameCanvasElement.height);
     globalGame.drawAll(gameCanvasContext);
+    createKineticLayer();
+    createRandomizeMenu();
 };
 
 window.onresize = function() {
     console.log("on resize");
-    var gameCanvasElement = document.getElementById("gameCanvas");
-    var gameCanvasContext = gameCanvasElement.getContext('2d');
+    gameCanvasElement = document.getElementById("gameCanvas");
+    gameCanvasContext = gameCanvasElement.getContext('2d');
     
     gameCanvasElement.setAttribute("width", gameCanvasElement.parentNode.offsetWidth);
     gameCanvasElement.setAttribute("height", gameCanvasElement.parentNode.offsetHeight);

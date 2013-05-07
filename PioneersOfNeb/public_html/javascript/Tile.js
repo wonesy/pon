@@ -70,99 +70,10 @@ function Tile(x, y, width, height, sidelength, id) {
     this.height = height; 
     this.sidelength = sidelength;
     
-    this.defineResource();
     this.resizePoints(x, y, width, height, sidelength);
     
 };
 
-Tile.prototype.defineResource = function() {
-    this.seaIDs = [1,3,4,14,15,27,28,34,36];
-    this.portIDs = [0,2,8,9,21,22,32,33,35];
-    
-    // if it is a sea tile
-    if (this.seaIDs.indexOf(this.Id) > -1) {
-        this.ResourceType = RESOURCE.SEA;
-    }
-    else if (this.portIDs.indexOf(this.Id) > -1){
-        if (this.Id === 0)
-            this.ResourceType = RESOURCE.THREEPORT2;
-        if (this.Id === 2)
-            this.ResourceType = RESOURCE.O_PORT;
-        if (this.Id === 8)
-            this.ResourceType = RESOURCE.WH_PORT;
-        if (this.Id === 9)
-            this.ResourceType = RESOURCE.S_PORT;
-        if (this.Id === 21)
-            this.ResourceType = RESOURCE.THREEPORT4;
-        if (this.Id === 22)
-            this.ResourceType = RESOURCE.THREEPORT1;
-        if (this.Id === 32)
-            this.ResourceType = RESOURCE.WO_PORT;
-        if (this.Id === 33)
-            this.ResourceType = RESOURCE.THREEPORT3;
-        if (this.Id === 35)
-            this.ResourceType = RESOURCE.B_PORT;
-    }
-    else {
-        var randomNumber = Math.floor(Math.random()*6);
-        
-        while (resourceCount[randomNumber] <= 0) {
-            randomNumber = Math.floor(Math.random()*6);
-        }
-        
-        if (randomNumber === 0)
-            this.ResourceType = RESOURCE.BRICK;
-        else if (randomNumber === 1)
-            this.ResourceType = RESOURCE.WOOD;
-        else if (randomNumber === 2)
-            this.ResourceType = RESOURCE.SHEEP;
-        else if (randomNumber === 3)
-            this.ResourceType = RESOURCE.WHEAT;
-        else if (randomNumber === 4)
-            this.ResourceType = RESOURCE.ORE;
-        else if (randomNumber === 5)
-            this.ResourceType = RESOURCE.DESERT;
-            
-        resourceCount[randomNumber]--;
-        
-        // Setup roll value if not desert
-        if (randomNumber !== 5) {
-            this.assignRollValue();
-        }
-    }
-};
-
-Tile.prototype.assignRollValue = function() {
-    
-        var randomNumber = Math.floor(Math.random()*10);
-        
-        while (rollValueCount[randomNumber] <= 0) {
-            randomNumber = Math.floor(Math.random()*10);
-        }
-        
-        if (randomNumber === 0)
-            this.RollValue = ROLL.TWO;
-        else if (randomNumber === 1)
-            this.RollValue = ROLL.THREE;
-        else if (randomNumber === 2)
-            this.RollValue = ROLL.FOUR;
-        else if (randomNumber === 3)
-            this.RollValue = ROLL.FIVE;
-        else if (randomNumber === 4)
-            this.RollValue = ROLL.SIX;
-        else if (randomNumber === 5)
-            this.RollValue = ROLL.EIGHT;
-        else if (randomNumber === 6)
-            this.RollValue = ROLL.NINE;
-        else if (randomNumber === 7)
-            this.RollValue = ROLL.TEN;
-        else if (randomNumber === 8)
-            this.RollValue = ROLL.ELEVEN;
-        else if (randomNumber === 9)
-            this.RollValue = ROLL.TWELVE;
-            
-        rollValueCount[randomNumber]--;
-};
 
 Tile.prototype.resizePoints = function(x, y, width, height, sidelength) {
     this.Points = [];
@@ -191,7 +102,8 @@ Tile.prototype.resizePoints = function(x, y, width, height, sidelength) {
  * @param {context} ctx Gameboard Canvas Context
  */
 Tile.prototype.draw = function(ctx) {
-
+    this.seaIDs = [1,3,4,14,15,27,28,34,36];
+    this.portIDs = [0,2,8,9,21,22,32,33,35];
     ctx.strokeStyle = "tan";
     ctx.lineWidth = 1;
     ctx.beginPath();

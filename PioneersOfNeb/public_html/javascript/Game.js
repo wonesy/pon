@@ -16,14 +16,6 @@ function Game(numPlayers, canvasWidth, canvasHeight) {
     this.initPlayers();
 };
 
-Game.prototype.rollDice = function() {
-    var die1 = 0;
-    var die2 = 0;
-    
-    die1 = Math.floor(Math.random()*6) + 1;
-    die2 = Math.floor(Math.random()*6) + 1;
-};
-
 Game.prototype.initPlayers = function() {
     for(var i = 0; i < this.numPlayers; i++) {
         this.Players.push(new Player(i));

@@ -7,7 +7,6 @@ function Board(canvasWidth, canvasHeight) {
     Math.seedrandom();
     this.Tiles = [];
     this.BoardVertices = [];
-    console.log("new board", canvasWidth, canvasHeight);
     for(var i = 0; i < 37; i++) {
         this.Tiles.push(new Tile(null,null,null,null,null,i));
     }
@@ -78,6 +77,49 @@ Board.prototype.sizeBoard = function(canvasWidth, canvasHeight) {
     
     for(var i = 0; i < 37; i++) {
         this.addVertex(this.Tiles[i]);
+    }
+};
+
+/*
+ * populates the tile information that the server sent
+ * i.e. roll values and resource types
+ */
+Board.prototype.populateTileInfo = function(info) {
+    for (var i = 0; i < 37; i++) {
+        //console.log("RES: " + info[Res])
+        switch (info[i]["Res"]) {
+            case "0":  this.Tiles[i].ResourceType = RESOURCE.BRICK; break;
+            case "1":  this.Tiles[i].ResourceType = RESOURCE.WOOD; break;
+            case "2":  this.Tiles[i].ResourceType = RESOURCE.SHEEP; break;
+            case "3":  this.Tiles[i].ResourceType = RESOURCE.WHEAT; break;
+            case "4":  this.Tiles[i].ResourceType = RESOURCE.ORE; break;
+            case "5":  this.Tiles[i].ResourceType = RESOURCE.DESERT; break;
+            case "6":  this.Tiles[i].ResourceType = RESOURCE.SEA; break;
+            case "7":  this.Tiles[i].ResourceType = RESOURCE.WH_PORT; break;
+            case "8":  this.Tiles[i].ResourceType = RESOURCE.S_PORT; break;
+            case "9":  this.Tiles[i].ResourceType = RESOURCE.B_PORT; break;
+            case "10": this.Tiles[i].ResourceType = RESOURCE.O_PORT; break;
+            case "11": this.Tiles[i].ResourceType = RESOURCE.WO_PORT; break;
+            case "12": this.Tiles[i].ResourceType = RESOURCE.THREEPORT1; break;
+            case "13": this.Tiles[i].ResourceType = RESOURCE.THREEPORT2; break;
+            case "14": this.Tiles[i].ResourceType = RESOURCE.THREEPORT3; break;
+            case "15": this.Tiles[i].ResourceType = RESOURCE.THREEPORT4; break;
+        }
+        
+        //console.log("ROLL: " + info["Roll"])
+        switch (info[i]["Roll"]) {
+            case "2": this.Tiles[i].RollValue = ROLL.TWO; break;
+            case "3": this.Tiles[i].RollValue = ROLL.THREE; break;
+            case "4": this.Tiles[i].RollValue = ROLL.FOUR; break;
+            case "5": this.Tiles[i].RollValue = ROLL.FIVE; break;
+            case "6": this.Tiles[i].RollValue = ROLL.SIX; break;
+            case "8": this.Tiles[i].RollValue = ROLL.EIGHT; break;
+            case "9": this.Tiles[i].RollValue = ROLL.NINE; break;
+            case "10": this.Tiles[i].RollValue = ROLL.TEN; break;
+            case "11": this.Tiles[i].RollValue = ROLL.ELEVEN; break;
+            case "12": this.Tiles[i].RollValue = ROLL.TWELVE; break;
+            default: break; //ignore
+        } 
     }
 };
 

@@ -57,7 +57,7 @@ Player.prototype.drawBanner = function(ctx, canvasWidth, canvasHeight) {
     bannerImage.src = this.Banner.imgPath;
     
     var avatarImage = new Image();
-    avatarImage.src = "images/tommy.jpg";
+    avatarImage.src = "images/berry.png";
     
     var bannerXPos;
     var bannerYPos;

@@ -1,0 +1,12 @@
+requires installation of Go
+
+sudo apt-get install golang-go
+
+required packages for Go are local to this folder and will be included in the git repo
+
+changes for local testing environments will be located in main.go
+    - line13: var addr = flag.String("addr", "<YOUR_LOCAL_IP_ADDRESS>:8080", "http service address")
+    - or leave that part blank, just ":8080", and it will default to "localhost:8080"
+    
+this is run with "go run *.go"
+you can compile it into an executable with "go build *.go"

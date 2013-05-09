@@ -9,7 +9,7 @@ var PLAYERBANNER = {
     THREE: {val: 3, imgPath: "images/banner_p3.png"}
 };
 
-function Player(id) {
+function Player(id, canvasWidth, canvasHeight) {
     this.Id = id;
     this.Name = "Player " + (id+1);
     this.Banner = null;

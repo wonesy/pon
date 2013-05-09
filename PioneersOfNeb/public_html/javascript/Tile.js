@@ -18,23 +18,18 @@ THREEPORT4: {val: 15, imgPath: "images/3to1_port4.png"}
 };
 
 var ROLL = {
-       TWO: {val: 0, imgPath: "images/rollvalue_02.png"},
-     THREE: {val: 1, imgPath: "images/rollvalue_03.png"},
-      FOUR: {val: 2, imgPath: "images/rollvalue_04.png"},
-      FIVE: {val: 3, imgPath: "images/rollvalue_05.png"},
-       SIX: {val: 4, imgPath: "images/rollvalue_06.png"},
-     EIGHT: {val: 5, imgPath: "images/rollvalue_08.png"},
-      NINE: {val: 6, imgPath: "images/rollvalue_09.png"},
-       TEN: {val: 7, imgPath: "images/rollvalue_10.png"},
-    ELEVEN: {val: 8, imgPath: "images/rollvalue_11.png"},
-    TWELVE: {val: 9, imgPath: "images/rollvalue_12.png"}
+      NONE: {val: 0, imgPath: ""},
+       TWO: {val: 2, imgPath: "images/rollvalue_02.png"},
+     THREE: {val: 3, imgPath: "images/rollvalue_03.png"},
+      FOUR: {val: 4, imgPath: "images/rollvalue_04.png"},
+      FIVE: {val: 5, imgPath: "images/rollvalue_05.png"},
+       SIX: {val: 6, imgPath: "images/rollvalue_06.png"},
+     EIGHT: {val: 8, imgPath: "images/rollvalue_08.png"},
+      NINE: {val: 9, imgPath: "images/rollvalue_09.png"},
+       TEN: {val: 10, imgPath: "images/rollvalue_10.png"},
+    ELEVEN: {val: 11, imgPath: "images/rollvalue_11.png"},
+    TWELVE: {val: 12, imgPath: "images/rollvalue_12.png"}
 };
-
-// in the same order as the enum above... exluding SEA
-var resourceCount = [3, 4, 4, 4, 3, 1];
-
-// in this order --   2, 3, 4, 5, 6, 8, 9,10,11,12
-var rollValueCount = [1, 2, 2, 2, 2, 2, 2, 2, 2, 1];
 
 /**
  * A Point is simply x and y coordinates
@@ -59,8 +54,8 @@ function Point(x, y) {
  */
 function Tile(x, y, width, height, sidelength, id) {
     this.Points = [];
-    this.RollValue = ROLL.TWO;
-    this.ResourceType = RESOURCE.WOOD;
+    this.RollValue = ROLL.NONE;
+    this.ResourceType = RESOURCE.SEA;
     this.Id = id;
     this.Vertices = [];
     
@@ -102,8 +97,6 @@ Tile.prototype.resizePoints = function(x, y, width, height, sidelength) {
  * @param {context} ctx Gameboard Canvas Context
  */
 Tile.prototype.draw = function(ctx) {
-    this.seaIDs = [1,3,4,14,15,27,28,34,36];
-    this.portIDs = [0,2,8,9,21,22,32,33,35];
     ctx.strokeStyle = "tan";
     ctx.lineWidth = 1;
     ctx.beginPath();
@@ -124,7 +117,7 @@ Tile.prototype.draw = function(ctx) {
     var tileY = this.y;
     
     var rollValueImage = new Image();
-    if (!((this.seaIDs.indexOf(this.Id) > -1) || this.ResourceType === RESOURCE.DESERT || (this.portIDs.indexOf(this.Id)> -1))) {
+    if (this.RollValue.val != 0) {
         rollValueImage.src = this.RollValue.imgPath;
         var rollValueWidth = this.height / 2.5;
         var rollValueHeight = this.height / 2.5;

@@ -11,7 +11,7 @@ import (
 )
  
 var addr = flag.String("addr", "192.168.1.88:8080", "http service address")
-var homeTempl = template.Must(template.ParseFiles("index.html"))
+var homeTempl = template.Must(template.ParseFiles("test.html"))
 var globalGame *Game
 
 // Function Handler for executing HTML code

@@ -45,9 +45,14 @@ func (g *Game) getTileInfo() {
     }
 
     tileInfo = tileInfo + "]}"
-    
     h.broadcast <- tileInfo
     
+}
+
+func (g *Game) makeNewBoard() {
+    defineResources(g.board.tiles)
+    defineRolls(g.board.tiles)
+    g.getTileInfo()
 }
 
 // Reads the data from the struct and calls the appropriate function
@@ -55,5 +60,7 @@ func callFunc(d Data) {
     switch d.Function {
     case "getTileInfo":
         globalGame.getTileInfo()
+    case "makeNewBoard":
+        globalGame.makeNewBoard()
     }
 }

@@ -65,6 +65,8 @@ func defineRolls(t []*Tile) {
         if t[order[num][i]].resourceType != DESERT {
             t[order[num][i]].rollValue = rollOrder[x]
             x++
+        } else {
+            t[order[num][i]].rollValue = 0
         }
     }
 }
@@ -96,7 +98,7 @@ func defineResources(t []*Tile) {
         case 22:
             t[i].resourceType = PORT_RAND1
         case 33:
-            t[i].resourceType = PORT_RAND3
+            t[i].resourceType = PORT_RAND3  
         case 1, 3, 4, 14, 15, 27, 28, 34, 36:
             t[i].resourceType = SEA
         default:
@@ -111,7 +113,7 @@ func defineResources(t []*Tile) {
     }
 }
 
-// returns a random integer [0.max)
+// returns a random integer [0-max)
 func randInt(min, max int) int {
     return min + rand.Intn(max-min)
 }

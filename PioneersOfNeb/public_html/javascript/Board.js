@@ -86,7 +86,7 @@ Board.prototype.sizeBoard = function(canvasWidth, canvasHeight) {
  */
 Board.prototype.populateTileInfo = function(info) {
     for (var i = 0; i < 37; i++) {
-        //console.log("RES: " + info[Res])
+        //console.log(info[i])
         switch (info[i]["Res"]) {
             case "0":  this.Tiles[i].ResourceType = RESOURCE.BRICK; break;
             case "1":  this.Tiles[i].ResourceType = RESOURCE.WOOD; break;
@@ -108,6 +108,7 @@ Board.prototype.populateTileInfo = function(info) {
         
         //console.log("ROLL: " + info["Roll"])
         switch (info[i]["Roll"]) {
+            case "0": this.Tiles[i].RollValue = ROLL.NONE; break;
             case "2": this.Tiles[i].RollValue = ROLL.TWO; break;
             case "3": this.Tiles[i].RollValue = ROLL.THREE; break;
             case "4": this.Tiles[i].RollValue = ROLL.FOUR; break;
@@ -121,6 +122,8 @@ Board.prototype.populateTileInfo = function(info) {
             default: break; //ignore
         } 
     }
+    
+    resetRandomizeButton();
 };
 
 /**

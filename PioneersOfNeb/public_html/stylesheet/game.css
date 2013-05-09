@@ -63,3 +63,15 @@ body,html {
     overflow: hidden;
     height: 100%;
 }
+#gameCanvas {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 0;
+}
+#hudCanvas {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 99;
+}

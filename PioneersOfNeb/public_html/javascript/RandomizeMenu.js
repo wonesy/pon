@@ -7,24 +7,6 @@ var randomizeMenu = {
     height: 0,
     borderWidth: 0
 };
-    
-var randomizeButton = {
-    x: 0,
-    y: 0, // represents top
-    width: 0,
-    height: 0,
-    borderWidth: 0,
-    strokeStyle: 'black'
-};
-    
-var readyToPlayButton = {
-    x: 0,
-    y: 0,
-    width: 0,
-    height: 0,
-    borderWidth: 0,
-    strokeStyle: 'black'
-};
 
 window.requestAnimFrame = (function(callback) {
     return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
@@ -67,13 +49,9 @@ function animate(randomizeMenu, canvas, context, startTime) {
     var linearSpeed = 10;
     // pixels / second
     var newMenuX = randomizeMenu.x - (linearSpeed * time / 1000);
-    var newRButtonX = randomizeButton.x - (linearSpeed * time / 1000);
-    var newPlayButtonX = readyToPlayButton.x - (linearSpeed * time / 1000);
 
     if(newMenuX > canvas.width ) {
         randomizeMenu.x = newMenuX;
-        randomizeButton.x = newRButtonX;
-        readyToPlayButton.x = newPlayButtonX;
     } else {
         run = false;
         canClickButtons = true;
@@ -82,8 +60,11 @@ function animate(randomizeMenu, canvas, context, startTime) {
     context.clearRect(0,0,canvas.width, canvas.height);
 
     drawMenu(randomizeMenu, context);
-    drawRectangle(randomizeButton, context);
-    drawRectangle(readyToPlayButton, context);
+    
+    document.getElementById("rand_btn").style.top = randomizeMenu.y-160 + "px";
+    document.getElementById("start_btn").style.top = randomizeMenu.y-80 + "px";
+    document.getElementById("rand_btn").style.right = canvas.width-newMenuX+10 + "px";
+    document.getElementById("start_btn").style.right = canvas.width-newMenuX+10 + "px";
 
     // request new frame
     if (run === true) {
@@ -99,31 +80,10 @@ function run_randomizeMenu() {
     randomizeMenu = {
         x: hudCanvasElement.width + (0.15*hudCanvasElement.width) + 100,
         y: hudCanvasElement.height/2 + 100, // represents bottom 
-        width: (0.15*hudCanvasElement.width),
+        width: 100,
         height: 200,
         borderWidth: 2
     };
-    
-    randomizeButton = {
-        x: randomizeMenu.x-(randomizeMenu.width),
-        y: randomizeMenu.y-160, // represents top
-        width: (0.7*randomizeMenu.width),
-        height: 40,
-        borderWidth: 1,
-        strokeStyle: 'black'
-    };
-    
-    readyToPlayButton = {
-        x: randomizeMenu.x-(randomizeMenu.width),
-        y: randomizeMenu.y-80,
-        width: (0.7*randomizeMenu.width),
-        height: 40,
-        borderWidth: 1,
-        strokeStyle: 'black'
-    };
-    
-    drawRectangle(randomizeMenu, hudCanvasContext);
-    //var imgData = gameCanvasContext.getImageData(0,0,gameCanvasElement.width,gameCanvasElement.height);
     
     setTimeout(function() {
         var startTime = (new Date()).getTime();
@@ -131,10 +91,9 @@ function run_randomizeMenu() {
     }, 1000);
 };
 
-function resetRandomizeButton() {
-    randomizeButton.strokeStyle = 'black';
-    drawRectangle(randomizeButton, hudCanvasContext);
-    canClickButtons = true;
+function resetButtons() {
+    document.getElementById("rand_btn").style.right = "-150px";
+    document.getElementById("start_btn").style.right = "-150px";
 };
 
 function requestNewBoard() {

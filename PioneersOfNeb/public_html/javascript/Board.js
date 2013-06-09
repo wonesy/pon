@@ -122,8 +122,6 @@ Board.prototype.populateTileInfo = function(info) {
             default: break; //ignore
         } 
     }
-    
-    resetRandomizeButton();
 };
 
 /**

@@ -48,6 +48,7 @@ window.onresize = function() {
     globalGame.sizeBoard(gameCanvasElement.width, gameCanvasElement.height);
     globalGame.drawAll(gameCanvasContext);
     if (!gameHasStarted) {
+        resetButtons();
         run_randomizeMenu();
     }
 };

@@ -31,8 +31,6 @@ function hudOnClick(e) {
            && coords.y > randomizeButton.y
            && coords.y < randomizeButton.y+randomizeButton.height) {
             console.log("randomize button!")
-            randomizeButton.strokeStyle = 'red';
-            drawRectangle(randomizeButton, hudCanvasContext);
             canClickButtons = false;
             requestNewBoard();
         }

@@ -58,8 +58,6 @@ func (g *Game) makeNewBoard() {
 
 func (g *Game) startGame() {
     h.broadcast <- "{\"MsgType\":\"data\",\"Func\":\"gameStarted\"}"
-    
-    //TODO: start game!
 }
 
 // Reads the data from the struct and calls the appropriate function

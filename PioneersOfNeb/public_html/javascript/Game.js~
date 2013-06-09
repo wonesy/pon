@@ -34,8 +34,8 @@ Game.prototype.drawHUD = function(ctx) {
  * @returns {undefined}
  */
 Game.prototype.drawAll = function(gameCtx, hudCtx) {
-    this.Board.draw(gameCtx);
-    this.drawHUD(hudCtx);
+    this.Board.draw(ctx);
+    this.drawHUD(ctx);
 };
 
 /*

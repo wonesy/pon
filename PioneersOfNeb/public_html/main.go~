@@ -14,6 +14,7 @@ import (
  
 var addr = flag.String("addr", "192.168.1.88:8080", "http service address")
 var homeTempl = template.Must(template.ParseFiles("test.html"))
+var store = sessions.NewCookieStore([]byte("something-very-secret"))
 var globalGame *Game
 
 // Function Handler for executing HTML code

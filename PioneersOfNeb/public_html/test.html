@@ -13,7 +13,7 @@
     <script type="text/javascript" src="javascript/RandomizeMenu.js"></script>
     <script type="text/javascript" src="javascript/seedrandom-min.js"></script>
     <script type="text/javascript" src="javascript/MouseEvents.js"></script>
-    <script type="text/javascript" src="http://www.html5canvastutorials.com/libraries/kinetic-v4.5.0-beta.js"></script>
+    <!--<script type="text/javascript" src="http://www.html5canvastutorials.com/libraries/kinetic-v4.5.0-beta.js"></script> -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
     <script type="text/javascript">
         $(function() {
@@ -46,12 +46,15 @@
                 conn.onmessage = function(evt) {
                     var jsonMsg = JSON.parse(evt.data);
                     if (jsonMsg.MsgType === "chat")
-                        appendLog($("<div/>").text(jsonMsg.Text));
+                        appendLog($("<div><b>").text(jsonMsg.Text));
                     else if (jsonMsg.MsgType === "data") {
                         switch (jsonMsg.Func) {
                             case "getTileInfo":
                                 globalGame.Board.populateTileInfo(jsonMsg.Info);
-                                globalGame.drawAll(gameCanvasContext);
+                                globalGame.drawAll(gameCanvasContext, hudCanvasContext);
+                                break;
+                            case "gameStarted":
+                                globalGame.gameStarted();
                                 break;
                             default:
                                 console.log("error")
@@ -81,8 +84,9 @@
         <div id="canvas_container">
             <canvas id="gameCanvas"></canvas>
             <canvas id="hudCanvas"></canvas>
+            <canvas id="menuCanvas"></canvas>
             <button type="button" class="randomize_button" id="rand_btn" onClick="requestNewBoard();">Randomize</button>
-            <button type="button" class="randomize_button" id="start_btn">Start Game</button>
+            <button type="button" class="randomize_button" id="start_btn" onClick="requestGameStart();">Start Game</button>
         </div>
     </div> <!-- END CONTAINER -->
 </body>

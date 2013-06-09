@@ -1,5 +1,9 @@
 var canClickButtons = false;
 
+// bidirectional globals
+var forward = 1;
+var backward = -2;
+
 var randomizeMenu = {
     x: 0,
     y: 0, // represents bottom 
@@ -20,8 +24,8 @@ function drawMenu(randomizeMenu, context) {
     context.beginPath();
     context.moveTo(randomizeMenu.x, randomizeMenu.y);
     context.lineTo(randomizeMenu.x - randomizeMenu.width, randomizeMenu.y);
-    context.arc(randomizeMenu.x - randomizeMenu.width, hudCanvasElement.height/2, randomizeMenu.height/2, 0.5*Math.PI, 1.5*Math.PI);
-    context.lineTo(randomizeMenu.x, hudCanvasElement.height/2-randomizeMenu.height/2);
+    context.arc(randomizeMenu.x - randomizeMenu.width, menuCanvasElement.height/2, randomizeMenu.height/2, 0.5*Math.PI, 1.5*Math.PI);
+    context.lineTo(randomizeMenu.x, menuCanvasElement.height/2-randomizeMenu.height/2);
     context.fillStyle = '#8ED6FF';
     context.fill();
     context.lineWidth = randomizeMenu.borderWidth;
@@ -41,16 +45,17 @@ function drawRectangle(myRectangle, context) {
     context.stroke();
 }
 
-function animate(randomizeMenu, canvas, context, startTime) {
+function animate(randomizeMenu, canvas, context, startTime, direction) {
     // update
     var time = (new Date()).getTime() - startTime;
     var run = true;
 
-    var linearSpeed = 10;
+    var linearSpeed = 10*direction;
     // pixels / second
     var newMenuX = randomizeMenu.x - (linearSpeed * time / 1000);
 
-    if(newMenuX > canvas.width ) {
+    if((newMenuX > canvas.width && direction == forward)
+        || (newMenuX < canvas.width + randomizeMenu.width + randomizeMenu.height && direction ==  backward)) {
         randomizeMenu.x = newMenuX;
     } else {
         run = false;
@@ -63,23 +68,23 @@ function animate(randomizeMenu, canvas, context, startTime) {
     
     document.getElementById("rand_btn").style.top = randomizeMenu.y-160 + "px";
     document.getElementById("start_btn").style.top = randomizeMenu.y-80 + "px";
-    document.getElementById("rand_btn").style.right = canvas.width-newMenuX+20 + "px";
-    document.getElementById("start_btn").style.right = canvas.width-newMenuX+20 + "px";
+    document.getElementById("rand_btn").style.right = canvas.width-newMenuX+10 + "px";
+    document.getElementById("start_btn").style.right = canvas.width-newMenuX+10 + "px";
 
     // request new frame
     if (run === true) {
         requestAnimFrame(function() {
-            animate(randomizeMenu, canvas, context, startTime);
+            animate(randomizeMenu, canvas, context, startTime, direction);
         });
     }
 }
 
-function run_randomizeMenu() {
+function showRandomizeMenu() {
     canClickButtons = false;
     
     randomizeMenu = {
-        x: hudCanvasElement.width + (0.15*hudCanvasElement.width) + 100,
-        y: hudCanvasElement.height/2 + 100, // represents bottom 
+        x: menuCanvasElement.width + (0.15*menuCanvasElement.width) + 100,
+        y: menuCanvasElement.height/2 + 100, // represents bottom 
         width: 100,
         height: 200,
         borderWidth: 2
@@ -87,7 +92,15 @@ function run_randomizeMenu() {
     
     setTimeout(function() {
         var startTime = (new Date()).getTime();
-        animate(randomizeMenu, hudCanvasElement, hudCanvasContext, startTime);
+        animate(randomizeMenu, menuCanvasElement, menuCanvasContext, startTime, forward);
+    }, 1000);
+};
+
+// hides the pre-game menu and begins the game
+function hideRandomizeMenu() {
+    setTimeout(function() {
+        var startTime = (new Date()).getTime();
+        animate(randomizeMenu, menuCanvasElement, menuCanvasContext, startTime, backward);
     }, 1000);
 };
 
@@ -96,8 +109,19 @@ function resetButtons() {
     document.getElementById("start_btn").style.right = "-150px";
 };
 
+// sends a request to server to re-randomize board
 function requestNewBoard() {
+    // MsgType: data,
+    // Text:
+    //      {Player: 0,
+    //       Function: makeNewBoard,
+    //       Params:}
     conn.send(JSON.stringify({"MsgType":"data","Text":"{\"Player\":\"0\",\"Function\":\"makeNewBoard\",\"Params\":\"\"}"}));
+};
+
+// sends a message to server to start game
+function requestGameStart() {
+    conn.send(JSON.stringify({"MsgType":"data","Text":"{\"Player\":\"0\",\"Function\":\"startGame\",\"Params\":\"\"}"}));
 };
 
 

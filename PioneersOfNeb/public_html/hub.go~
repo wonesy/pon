@@ -22,13 +22,13 @@ var h = hub {
 }
 
 func createNewHub() *hub {
-    newHub := new(hub)
-    (*newHub).broadcast = make(chan string)
-    (*newHub).register = make(chan *connection)
-    (*newHub).unregister = make(chan *connection)
-    (*newHub).connections = make(map[*connection]bool)
+    h = new(hub)
+    (*h).broadcast = make(chan string)
+    (*h).register = make(chan *connection),
+    (*h).unregister = make(chan *connection),
+    (*h).connections = make(map[*connection]bool)
     
-    return newHub
+    return h
 }
  
 func (h *hub) run() {

@@ -109,7 +109,7 @@ function resetButtons() {
     document.getElementById("start_btn").style.right = "-150px";
 };
 
-// sends a request to server to re-randomize board
+// sends a request to server to re-randomize board   
 function requestNewBoard() {
     // MsgType: data,
     // Text:

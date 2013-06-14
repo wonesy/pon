@@ -14,8 +14,8 @@ import (
  
 var addr = flag.String("addr", "192.168.1.88:8080", "http service address")
 var homeTempl = template.Must(template.ParseFiles("test.html"))
-var store = sessions.NewCookieStore([]byte("something-very-secret"))
 var globalGame *Game
+var currentGames []*gameInstances
 
 // Function Handler for executing HTML code
 func homeHandler(w http.ResponseWriter, req *http.Request) {
@@ -39,7 +39,7 @@ func main() {
 	// setting up variables for the game instances and chat connectivity
     rand.Seed( time.Now().UTC().UnixNano())
     flag.Parse()
-    globalGame = init_game(2)   // hard coded for testing
+    globalGame = init_game(4)   // hard coded for testing
     go h.run()  // start the hub
     
     // serving files for the game

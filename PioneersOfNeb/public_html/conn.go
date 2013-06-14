@@ -3,6 +3,7 @@ package main
 import (
     "code.google.com/p/go.net/websocket"
     "encoding/json"
+    "io"
     "fmt"
 )
  
@@ -32,9 +33,14 @@ func (c *connection) reader() {
         var msg Message 
         err := websocket.JSON.Receive(c.ws, &msg)
         if err != nil {
-            fmt.Println(err)
+            if err == io.EOF {
+                fmt.Println("Socket has ended")
+                break
+            }
+            fmt.Println("Websocket error: ", err)
             break
         }
+        //fmt.Println(msg.MsgType);
         // determine whether traffic is for game data or for chat
         switch msg.MsgType {
         case "chat":
@@ -62,8 +68,10 @@ func (c *connection) writer() {
     }
     c.ws.Close()
 }
- 
-func wsHandler(ws *websocket.Conn) {
+
+// This needs to be handled
+func wsLobbyHandler(ws *websocket.Conn) {
+    fmt.Println(ws.LocalAddr());
     c := &connection{send: make(chan string, 512), ws: ws}
     h.register <- c
     defer func() { h.unregister <- c }()

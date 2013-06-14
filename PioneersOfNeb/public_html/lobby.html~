@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>Lobby</title>
+    <link rel="stylesheet" type="text/css" href="stylesheet/lobby.css" />
+</head>
+<body>
+    <div id="container">
+        <div id="menu">
+            <p class="name">Name</p>
+            <div id="button_div1">
+                <button type="button" class="lobby_button" id="create_game" onClick="">Create Game</button>
+            </div>
+            <div id="button_div2">
+                <button type="button" class="lobby_button" id="join_game" onClick="">Join Game</button>
+            </div>
+        </div>
+        <div id="game_list"></div>
+        <div id="game_data"></div>
+    </div>
+</body>
+</html>

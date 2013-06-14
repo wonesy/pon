@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>Lobby</title>
+    <link rel="stylesheet" type="text/css" href="stylesheet/lobby.css" />
+    <script type="text/javascript" src="javascript/jquery.min.js"></script>
+    <script type="text/javascript">
+        var lobbyconn;
+        $(function() {
+            var gameListDiv = $("#game_list");
+
+            // websocket handling
+            if (window["WebSocket"]) {
+                lobbyconn = new WebSocket("ws://{{$}}/ws");
+                lobbyconn.onclose = function(evt) {
+                    console.log("lobby ws closed.");
+                }
+                lobbyconn.onmessage = function(evt) {
+                    var jsonMsg = JSON.parse(evt.data);
+                    console.log(jsonMsg);
+                }
+            }
+        });
+    </script>
+</head>
+<body>
+    <div id="container">
+        <div id="menu">
+            <p class="name">Name</p>
+            <div class="button_div">
+                <button type="button" class="lobby_button" id="create_game" onClick="location.href='game.html'">Create Game</button>
+            </div>
+            <div class="button_div">
+                <button type="button" class="lobby_button" id="join_game" onClick="">Join Game</button>
+            </div>
+        </div>
+        <div id="game_list"></div>
+        <div id="game_data"></div>
+    </div>
+</body>
+</html>

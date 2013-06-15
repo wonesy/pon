@@ -3,32 +3,97 @@
 <title>Pioneers of Neb :: Login</title>
     <link rel="stylesheet" type="text/css" href="stylesheet/login.css" />
     <script type="text/javascript" src="javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="javascript/validation.js"></script>
     <script type="text/javascript">
         var loginconn;
         $(function() {
             // websocket handling
             if (window["WebSocket"]) {
-                loginconn = new WebSocket("wss://{{$}}/ws");
+                loginconn = new WebSocket("wss://{{$}}/loginws");
                 loginconn.onclose = function(evt) {
                     console.log("login ws closed.");
                 }
-                loginconn.onmessage = function(evt) {
-                    var jsonMsg = JSON.parse(evt.data);
-                    console.log(jsonMsg);
+                loginconn.onmessage = function(evt) {                    
+                    var msg = evt.data;
+                    if (msg === "user404") {
+                        document.getElementById("login_errors").innerHTML += "<p class=\"err_msg\">Username/Password combination not found</p>";
+                        document.getElementById("login_password").value = "";
+                        document.getElementById("login_username").value = "";
+                    }
+                    else if (msg === "alreadyExists") {
+                        console.log("that email already exists")
+                    }
                 }
             }
+
+            // Login submission
+            $("#login_form").submit(function() {
+                document.getElementById("login_errors").innerHTML = "";
+                document.getElementById("register_errors").innerHTML = "";
+
+                var loginmsg = '{\"Type\":\"login\",\"Payload\":\"{\'Username\':\'' + $("#login_username").val() + '\',\'Password\':\'' + $("#login_password").val() + '\'}\"}';
+                loginconn.send(loginmsg);
+
+                return false;
+            });
+
+            // Registration submission
+            $("#register_form").submit(function() {
+                var hasRegErrors = false;
+                document.getElementById("login_errors").innerHTML = "";
+                document.getElementById("register_errors").innerHTML = "";
+
+                console.log("here!");
+                // TODO:
+                if (!validateEmail( $("#register_email").val() )) {
+                    console.log("invalid");
+                    // enters here if invalid email
+                    document.getElementById("register_errors").innerHTML += "<p class=\"err_msg\">Invalid Email!</p>";
+                    hasRegErrors = true;
+                }
+
+                if (!validatePasswords( $("#register_password").val(), $("#register_confirm").val() )) {
+                    document.getElementById("register_errors").innerHTML += "<p class=\"err_msg\">Passwords don't match!</p>";
+                    hasRegErrors = true;
+                }
+
+                if (hasRegErrors) {
+                    document.getElementById("register_email").value = "";
+                    document.getElementById("register_username").value = "";
+                    document.getElementById("register_password").value = "";
+                    document.getElementById("register_confirm").value = "";
+                } else {
+                    var regmsg = '{\"Type\":\"reg\",\"Payload\":\"{\'Email\':\'' + $("#register_email").val() + '\',\'Username\':\'' + $("#register_username").val() + '\',\'Password\':\'' + $("#register_password").val() + '\'}\"}';
+                    loginconn.send(regmsg);
+                }
+                  //  console.log("email error");
+                // compare passwords
+                // submit to server
+                return false;
+            });
         });
     </script>
 </head>
 <body>
     <div id="container">
 
+        <div id="banner">
+            <img src="images/pioneers-logo.png" ></img>
+        </div>
+
+        <div id="error_mesages">
+            <div id="login_errors" class="errors">
+            </div>
+            <div id="register_errors" class="errors">
+            </div>
+        </div>
+
         <div id="login_side">
             <form id="login_form">
                 <h1>Log In</h1>
                 <fieldset id="login_inputs">
-                    <input id="login_username" type="text" placeholder="Username" autofocus required>   
-                    <input id="login_password" type="password" placeholder="Password" required>
+                    <input id="login_username" class="inputtext" type="text" placeholder="Username" autofocus required>   
+                    <input id="login_password" class="inputtext" type="password" placeholder="Password" required>
                 </fieldset>
                 <fieldset id="login_actions">
                     <input type="submit" id="login_submit" value="Log in">
@@ -40,9 +105,10 @@
             <form id="register_form">
                 <h1>Register</h1>
                 <fieldset id="register_inputs">
-                    <input id="register_email" type="text" placeholder="Email" autofocus required> 
-                    <input id="register_username" type="text" placeholder="Username" required>   
-                    <input id="register_password" type="password" placeholder="Password" required>
+                    <input id="register_email" class="inputtext" type="text" placeholder="Email" autofocus required> 
+                    <input id="register_username" class="inputtext" type="text" placeholder="Username" required>   
+                    <input id="register_password" class="inputtext" type="password" placeholder="Password" required>
+                    <input id="register_confirm" class="inputtext" type="password" placeholder="Confirm Password" required>
                 </fieldset>
                 <fieldset id="register_actions">
                     <input type="submit" id="register_submit" value="Register">

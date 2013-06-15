@@ -52,7 +52,6 @@ func (c *connection) reader() {
             } else {
                 fmt.Println(err)
             }
-            
         }
     }
     c.ws.Close()
@@ -77,4 +76,11 @@ func wsLobbyHandler(ws *websocket.Conn) {
     defer func() { h.unregister <- c }()
     go c.writer()
     c.reader()
+}
+
+func wsLoginHandler(ws *websocket.Conn) {
+    fmt.Println("login ws handler")
+    c := &connection{send: make(chan string, 512), ws: ws}
+    c.validateLoginCredentials()
+
 }

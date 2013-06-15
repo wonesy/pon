@@ -16,15 +16,18 @@ import (
  
 // HTML variables
 var addr = flag.String("addr", "192.168.1.88:8080", "http service address")
-var homeTempl = template.Must(template.ParseFiles("lobby.html"))
+var homeTempl = template.Must(template.ParseFiles("login.html"))
 var gameTempl = template.Must(template.ParseFiles("game.html"))
+var lobbyTempl = template.Must(template.ParseFiles("lobby.html"))
 
 // session/cookie variables
 var store = sessions.NewCookieStore([]byte("secret-key"))
 
 // global game variables
 var globalGame *Game
-var currentGames []*gameInstance
+
+// database variable
+var db *sql.DB
 
 // Function Handler for executing HTML code
 func homeHandler(w http.ResponseWriter, req *http.Request) {
@@ -34,6 +37,11 @@ func homeHandler(w http.ResponseWriter, req *http.Request) {
 // Function handler for executing HTML code
 func gameHandler(w http.ResponseWriter, req *http.Request)  {
     gameTempl.Execute(w, req.Host)
+}
+
+// Function handler for executing HTML code
+func lobbyHandler(w http.ResponseWriter, req *http.Request)  {
+    lobbyTempl.Execute(w, req.Host)
 }
 
 // Serves the files as needed, whenever they are requested
@@ -59,10 +67,7 @@ func sessionHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
     // database connectivity
-    db, err := sql.Open("mysql", "root:Mysqlcarm44@/pioneers")
-	if err != nil {
-		panic(err.Error())  // Just for example purpose. use proper error handling instead of panic
-	}
+    db, _ = sql.Open("mysql", "root:Mysqlcarm44@/pioneers")
 	defer db.Close()
 	
 	// setting up variables for the game instances and chat connectivity
@@ -73,7 +78,9 @@ func main() {
     
     // serving files for the game
     http.HandleFunc("/", homeHandler)
+    http.Handle("/loginws", websocket.Handler(wsLoginHandler))
     http.Handle("/ws", websocket.Handler(wsLobbyHandler))
+    http.HandleFunc("/lobby.html", gameHandler)
     http.HandleFunc("/game.html", gameHandler)
     http.HandleFunc("/javascript/", SourceHandler)
     http.HandleFunc("/stylesheet/", SourceHandler)

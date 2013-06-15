@@ -10,7 +10,7 @@
 
             // websocket handling
             if (window["WebSocket"]) {
-                lobbyconn = new WebSocket("ws://{{$}}/ws");
+                lobbyconn = new WebSocket("wss://{{$}}/ws");
                 lobbyconn.onclose = function(evt) {
                     console.log("lobby ws closed.");
                 }

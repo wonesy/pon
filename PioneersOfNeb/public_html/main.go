@@ -2,6 +2,7 @@ package main
  
 import (
     "code.google.com/p/go.net/websocket"
+    "github.com/gorilla/sessions"
     "flag"
     "log"
     "net/http"
@@ -9,12 +10,19 @@ import (
     "math/rand"
     "time"
     "database/sql"
+    "fmt"
     _ "github.com/go-sql-driver/mysql"
 )
  
+// HTML variables
 var addr = flag.String("addr", "192.168.1.88:8080", "http service address")
 var homeTempl = template.Must(template.ParseFiles("lobby.html"))
 var gameTempl = template.Must(template.ParseFiles("game.html"))
+
+// session/cookie variables
+var store = sessions.NewCookieStore([]byte("secret-key"))
+
+// global game variables
 var globalGame *Game
 var currentGames []*gameInstance
 
@@ -34,11 +42,26 @@ func SourceHandler(w http.ResponseWriter, r *http.Request) {
     http.ServeFile(w, r, r.URL.Path[1:])
 }
 
+// sessions handler
+func sessionHandler(w http.ResponseWriter, r *http.Request) {
+    // Get a session. We're ignoring the error resulted from decoding an
+    // existing session: Get() always returns a session, even if empty.
+    sessionName := r.RemoteAddr
+    fmt.Println(sessionName)
+    session, _ := store.Get(r, "session-name")
+    fmt.Println(r)
+    // Set some session values.
+    session.Values["name"] = "bar"
+    session.Values[42] = 43
+    // Save it.
+    session.Save(r, w)
+}
+
 func main() {
     // database connectivity
     db, err := sql.Open("mysql", "root:Mysqlcarm44@/pioneers")
 	if err != nil {
-		panic(err.Error())  // Just for example purpose. You should use proper error handling instead of panic
+		panic(err.Error())  // Just for example purpose. use proper error handling instead of panic
 	}
 	defer db.Close()
 	
@@ -56,7 +79,7 @@ func main() {
     http.HandleFunc("/stylesheet/", SourceHandler)
     http.HandleFunc("/images/", SourceHandler)
     //http.HandleFunc("/*.html", SourceHandler)
-    if err := http.ListenAndServe(*addr, nil); err != nil {
+    if err := http.ListenAndServeTLS(*addr, "cert.pem", "key.pem", nil); err != nil {
         log.Fatal("ListenAndServe:", err)
     }
 }

@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>Pioneers of Neb :: Login</title>
+    <link rel="stylesheet" type="text/css" href="stylesheet/login.css" />
+    <script type="text/javascript" src="javascript/jquery.min.js"></script>
+    <script type="text/javascript">
+        var loginconn;
+        $(function() {
+            // websocket handling
+            if (window["WebSocket"]) {
+                loginconn = new WebSocket("wss://{{$}}/ws");
+                loginconn.onclose = function(evt) {
+                    console.log("login ws closed.");
+                }
+                loginconn.onmessage = function(evt) {
+                    var jsonMsg = JSON.parse(evt.data);
+                    console.log(jsonMsg);
+                }
+            }
+        });
+    </script>
+</head>
+<body>
+    <div id="container">
+
+        <div id="login_side">
+            <form id="login_form">
+                <h1>Log In</h1>
+                <fieldset id="login_inputs">
+                    <input id="login_username" type="text" placeholder="Username" autofocus required>   
+                    <input id="login_password" type="password" placeholder="Password" required>
+                </fieldset>
+                <fieldset id="login_actions">
+                    <input type="submit" id="login_submit" value="Log in">
+                </fieldset>
+            </form>
+        </div>
+
+        <div id="register_side">
+            <form id="register_form">
+                <h1>Register</h1>
+                <fieldset id="register_inputs">
+                    <input id="register_email" type="text" placeholder="Email" autofocus required> 
+                    <input id="register_username" type="text" placeholder="Username" required>   
+                    <input id="register_password" type="password" placeholder="Password" required>
+                </fieldset>
+                <fieldset id="register_actions">
+                    <input type="submit" id="register_submit" value="Register">
+                </fieldset>
+            </form>
+        </div>
+
+    </div>
+</body>
+</html>

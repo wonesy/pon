@@ -14,26 +14,47 @@
                 lobbyconn.onclose = function(evt) {
                     console.log("lobby ws closed.");
                 }
+
                 lobbyconn.onmessage = function(evt) {
                     var jsonMsg = JSON.parse(evt.data);
                     console.log(jsonMsg);
                 }
             }
         });
+
+        function createSubmit () {
+            var form = document.createElement('form');
+            form.setAttribute('method', 'post');
+            form.setAttribute('action', '/lobby.html');
+            form.style.display = 'hidden';
+
+            var i = document.createElement("input"); //input element, text
+            i.setAttribute('id', 'create_input')
+            i.setAttribute('type',"text");
+            i.setAttribute('name',"create");
+
+            form.appendChild(i)
+
+            document.body.appendChild(form)
+
+            $("#create_input").val("create");
+
+            form.submit();
+        }
     </script>
 </head>
 <body>
     <div id="container">
         <div id="menu">
-            <p class="name">Name</p>
+            <p class="name">{{.Name}}</p>
             <div class="button_div">
-                <button type="button" class="lobby_button" id="create_game" onClick="location.href='game.html'">Create Game</button>
+                <button type="submit" class="lobby_button" id="create_game" onClick="createSubmit()">Create Game</button>
             </div>
             <div class="button_div">
                 <button type="button" class="lobby_button" id="join_game" onClick="">Join Game</button>
             </div>
         </div>
-        <div id="game_list"></div>
+        <div id="game_list">{{.AvailableGames}}</div>
         <div id="game_data"></div>
     </div>
 </body>

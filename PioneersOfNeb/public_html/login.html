@@ -8,11 +8,13 @@
         var loginconn;
         $(function() {
             // websocket handling
-            if (window["WebSocket"]) {
+            /*if (window["WebSocket"]) {
                 loginconn = new WebSocket("wss://{{$}}/loginws");
+
                 loginconn.onclose = function(evt) {
                     console.log("login ws closed.");
                 }
+
                 loginconn.onmessage = function(evt) {                    
                     var msg = evt.data;
                     if (msg === "user404") {
@@ -20,22 +22,15 @@
                         document.getElementById("login_password").value = "";
                         document.getElementById("login_username").value = "";
                     }
+                    else if (msg === "success") {
+                        console.log("success");
+                        window.location.replace("lobby.html");
+                    }
                     else if (msg === "alreadyExists") {
                         console.log("that email already exists")
                     }
                 }
-            }
-
-            // Login submission
-            $("#login_form").submit(function() {
-                document.getElementById("login_errors").innerHTML = "";
-                document.getElementById("register_errors").innerHTML = "";
-
-                var loginmsg = '{\"Type\":\"login\",\"Payload\":\"{\'Username\':\'' + $("#login_username").val() + '\',\'Password\':\'' + $("#login_password").val() + '\'}\"}';
-                loginconn.send(loginmsg);
-
-                return false;
-            });
+            }*/
 
             // Registration submission
             $("#register_form").submit(function() {
@@ -62,14 +57,9 @@
                     document.getElementById("register_username").value = "";
                     document.getElementById("register_password").value = "";
                     document.getElementById("register_confirm").value = "";
-                } else {
-                    var regmsg = '{\"Type\":\"reg\",\"Payload\":\"{\'Email\':\'' + $("#register_email").val() + '\',\'Username\':\'' + $("#register_username").val() + '\',\'Password\':\'' + $("#register_password").val() + '\'}\"}';
-                    loginconn.send(regmsg);
-                }
-                  //  console.log("email error");
-                // compare passwords
-                // submit to server
-                return false;
+                    return false;
+                } 
+                return true;
             });
         });
     </script>
@@ -83,36 +73,30 @@
 
         <div id="error_mesages">
             <div id="login_errors" class="errors">
+                <p class=".err_msg">{{.loginErrors}}</p>
             </div>
             <div id="register_errors" class="errors">
+                <p class=".err_msg">{{.registerErrors}}</p>
             </div>
         </div>
 
         <div id="login_side">
-            <form id="login_form">
+            <form id="login_form" action="/formlogin" method="post">
                 <h1>Log In</h1>
-                <fieldset id="login_inputs">
-                    <input id="login_username" class="inputtext" type="text" placeholder="Username" autofocus required>   
-                    <input id="login_password" class="inputtext" type="password" placeholder="Password" required>
-                </fieldset>
-                <fieldset id="login_actions">
-                    <input type="submit" id="login_submit" value="Log in">
-                </fieldset>
+                <input id="login_username" name="lUn" class="inputtext" type="text" placeholder="Username" autofocus required>   
+                <input id="login_password" name="lPw" class="inputtext" type="password" placeholder="Password" required>
+                <input type="submit" id="login_submit" value="Log in">
             </form>
         </div>
 
         <div id="register_side">
-            <form id="register_form">
+            <form id="register_form" action="/formreg" method="post">
                 <h1>Register</h1>
-                <fieldset id="register_inputs">
-                    <input id="register_email" class="inputtext" type="text" placeholder="Email" autofocus required> 
-                    <input id="register_username" class="inputtext" type="text" placeholder="Username" required>   
-                    <input id="register_password" class="inputtext" type="password" placeholder="Password" required>
-                    <input id="register_confirm" class="inputtext" type="password" placeholder="Confirm Password" required>
-                </fieldset>
-                <fieldset id="register_actions">
-                    <input type="submit" id="register_submit" value="Register">
-                </fieldset>
+                <input id="register_email" name="rEmail" class="inputtext" type="text" placeholder="Email" autofocus required> 
+                <input id="register_username" name="rUn" class="inputtext" type="text" placeholder="Username" required>   
+                <input id="register_password" name="rPw" class="inputtext" type="password" placeholder="Password" required>
+                <input id="register_confirm" class="inputtext" type="password" placeholder="Confirm Password" required>
+                <input type="submit" id="register_submit" value="Register">
             </form>
         </div>
 

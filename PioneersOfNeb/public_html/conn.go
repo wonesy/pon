@@ -3,6 +3,7 @@ package main
 import (
     "code.google.com/p/go.net/websocket"
     "encoding/json"
+    //"net/http"
     "io"
     "fmt"
 )
@@ -68,6 +69,21 @@ func (c *connection) writer() {
     c.ws.Close()
 }
 
+// creates a session for a specific connection
+func (c *connection) createSession(usr *User) {
+    
+    
+
+    session, _ := store.Get(c.ws.Request(), "pon")
+    session.Values["isAuthorized"] = true
+    session.Values["username"] = usr.Username
+    session.Save(c.ws.Request(), nil)
+    err := websocket.Message.Send(c.ws, "success")
+    if err != nil {
+        fmt.Println("session error")
+    }
+}
+
 // This needs to be handled
 func wsLobbyHandler(ws *websocket.Conn) {
     fmt.Println(ws.LocalAddr());
@@ -79,8 +95,9 @@ func wsLobbyHandler(ws *websocket.Conn) {
 }
 
 func wsLoginHandler(ws *websocket.Conn) {
-    fmt.Println("login ws handler")
     c := &connection{send: make(chan string, 512), ws: ws}
-    c.validateLoginCredentials()
+    //c.validateLoginCredentials()
+    fmt.Println(c)
 
 }
+

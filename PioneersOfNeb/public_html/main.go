@@ -40,6 +40,9 @@ var globalHub = hub {
     unregister: make(chan *connection),
     connections: make(map[*connection]bool),
 }
+
+// this variable is a legacy tester, remains only to keep older code from breaking
+//      it will be removed
 var globalGame *Game
 
 // database variable
@@ -52,30 +55,37 @@ func homeHandler(w http.ResponseWriter, req *http.Request) {
 
 // Function handler for executing HTML code
 func gameHandler(w http.ResponseWriter, req *http.Request)  {
-    if isLoggedIn, _ := validateSession(w, req); isLoggedIn{
+    fmt.Println("in game")
+    gameTempl.Execute(w, req.Host)
+    /*if isLoggedIn, _ := validateSession(w, req); isLoggedIn{
         gameTempl.Execute(w, req.Host)
     } else {
         homeTempl.Execute(w, map[string]string{
             "loginErrors": "Must log in first",
         })
-    }
+    }*/
 }
 
 // Function handler for executing HTML code
 func lobbyHandler(w http.ResponseWriter, req *http.Request)  {
     // make sure client is logged in
     if isLoggedIn, session := validateSession(w, req); isLoggedIn {
+        fmt.Println(session)
         name := fmt.Sprintf("%v", session.Values["user"])
-        /*if req.Method == "POST" {   // if there is a POST form from the lobby page
+        if req.Method == "POST" {   // if there is a POST form from the lobby page
             if create := req.FormValue("create"); create != "" {   // see if it's to create a new game
+                fmt.Println("here")
                 globalGameList.createGameInstance(name, "")
+                session.Options.Path =  "/game.html"
+                http.Redirect(w, req, "/game.html", http.StatusFound)
             }
-        }*/
-        //availableGames := globalGameList.getAvailableGames()
-        lobbyTempl.Execute(w, map[string]interface{}{
-            "URL": myURL,
-            "Name": name,
-        })
+        } else {
+            //availableGames := globalGameList.getAvailableGames()
+            lobbyTempl.Execute(w, map[string]interface{}{
+                "URL": myURL,
+                "Name": name,
+            })
+        }
     } else {
         homeTempl.Execute(w, map[string]string{
             "loginErrors": "Must log in first",
@@ -145,8 +155,10 @@ func validateSession(w http.ResponseWriter, r *http.Request) (bool, *sessions.Se
             fmt.Println("Unauthorized user detected!")
             return false, nil
         }
+    } else {
+        fmt.Println(err)
     }
-    fmt.Println("wtf")
+    fmt.Println("nope")
     return false, nil
 }
 

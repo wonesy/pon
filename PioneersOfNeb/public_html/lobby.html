@@ -4,7 +4,7 @@
     <link rel="stylesheet" type="text/css" href="stylesheet/lobby.css" />
     <script type="text/javascript" src="javascript/jquery.min.js"></script>
     <script type="text/javascript">
-        var lobbyconn;
+        /*var lobbyconn;
         $(function() {
             var gameListDiv = $("#game_list");
 
@@ -21,15 +21,15 @@
                     console.log(jsonMsg);
                 }
             }
-        });
+        });*/
 
-        $('#create_game').submit(function(){
-            lobbyconn.send("{\"MsgType\":\"data\",\"Text\"\"Player\":\"{{.Name}}\"}")
-        });
+        /*$('#create_game').submit(function(){
+            lobbyconn.send(JSON.stringify({"MsgType":"data","Text":"{\"Player\":\"0\",\"Function\":\"createGame\",\"Params\":\"\"}"}));
+        });*/
 
-        function createSubmit () {
+        function createSubmit() {
 
-            lobbyconn.send();
+            console.log("submitting...");
 
             var form = document.createElement('form');
             form.setAttribute('method', 'post');
@@ -37,18 +37,19 @@
             form.style.display = 'hidden';
 
             var i = document.createElement("input"); //input element, text
-            i.setAttribute('id', 'create_input')
+            i.setAttribute('id', 'create_input');
             i.setAttribute('type',"text");
             i.setAttribute('name',"create");
 
-            form.appendChild(i)
+            form.appendChild(i);
 
-            document.body.appendChild(form)
+            document.body.appendChild(form);
 
             $("#create_input").val("create");
 
             form.submit();
         }
+
     </script>
 </head>
 <body>
@@ -56,7 +57,7 @@
         <div id="menu">
             <p class="name">{{.Name}}</p>
             <div class="button_div">
-                <button type="submit" class="lobby_button" id="create_game">Create Game</button>
+                <button type="submit" class="lobby_button" id="create_game" onClick="createSubmit()">Create Game</button>
             </div>
             <div class="button_div">
                 <button type="button" class="lobby_button" id="join_game" onClick="">Join Game</button>

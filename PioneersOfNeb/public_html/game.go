@@ -64,15 +64,3 @@ func (g *Game) startGame() {
     
     //TODO: start game!
 }
-
-// Reads the data from the struct and calls the appropriate function
-func callFunc(d Data) {
-    switch d.Function {
-    case "getTileInfo":
-        globalGame.getTileInfo()
-    case "makeNewBoard":
-        globalGame.makeNewBoard()
-    case "startGame":
-        globalGame.startGame()
-    }
-}

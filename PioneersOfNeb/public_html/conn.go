@@ -72,7 +72,21 @@ func (c *connection) writer() {
 // reader for lobby websockets only
 func (c *connection) lobbyReader() {
     for {
-        var msg Message
+        //var msg Message
+    }
+}
+
+// Reads the data from the struct and calls the appropriate function
+func callFunc(d Data) {
+    switch d.Function {
+    case "getTileInfo":
+        globalGame.getTileInfo()
+    case "makeNewBoard":
+        globalGame.makeNewBoard()
+    case "startGame":
+        globalGame.startGame()
+    case "createGame":
+
     }
 }
 
@@ -92,6 +106,6 @@ func wsLobbyHandler(ws *websocket.Conn) {
     globalHub.register <- c
     defer func() {globalHub.unregister <- c}()
     go c.writer()
-    c.lobbyReader()
+    c.reader()
 }
 

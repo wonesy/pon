@@ -10,7 +10,8 @@
 
             // websocket handling
             if (window["WebSocket"]) {
-                lobbyconn = new WebSocket("wss://{{$}}/ws");
+                console.log({{.URL}})
+                lobbyconn = new WebSocket("wss://{{.URL}}/ws");
                 lobbyconn.onclose = function(evt) {
                     console.log("lobby ws closed.");
                 }
@@ -22,7 +23,14 @@
             }
         });
 
+        $('#create_game').submit(function(){
+            lobbyconn.send("{\"MsgType\":\"data\",\"Text\"\"Player\":\"{{.Name}}\"}")
+        });
+
         function createSubmit () {
+
+            lobbyconn.send();
+
             var form = document.createElement('form');
             form.setAttribute('method', 'post');
             form.setAttribute('action', '/lobby.html');
@@ -48,13 +56,16 @@
         <div id="menu">
             <p class="name">{{.Name}}</p>
             <div class="button_div">
-                <button type="submit" class="lobby_button" id="create_game" onClick="createSubmit()">Create Game</button>
+                <button type="submit" class="lobby_button" id="create_game">Create Game</button>
             </div>
             <div class="button_div">
                 <button type="button" class="lobby_button" id="join_game" onClick="">Join Game</button>
             </div>
         </div>
-        <div id="game_list">{{.AvailableGames}}</div>
+        <div id="game_list">
+            <ul class="available_games">
+            </ul>
+        </div>
         <div id="game_data"></div>
     </div>
 </body>

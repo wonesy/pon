@@ -45,7 +45,7 @@ func (c *connection) reader() {
         // determine whether traffic is for game data or for chat
         switch msg.MsgType {
         case "chat":
-            h.broadcast <- fmt.Sprintf("{\"MsgType\":\"chat\",\"Text\":\"%s\"}",msg.Text)
+            globalHub.broadcast <- fmt.Sprintf("{\"MsgType\":\"chat\",\"Text\":\"%s\"}",msg.Text)
         case "data":
             var data Data
             if err := json.Unmarshal([]byte(msg.Text), &data); err == nil {
@@ -69,35 +69,29 @@ func (c *connection) writer() {
     c.ws.Close()
 }
 
-// creates a session for a specific connection
-func (c *connection) createSession(usr *User) {
-    
-    
-
-    session, _ := store.Get(c.ws.Request(), "pon")
-    session.Values["isAuthorized"] = true
-    session.Values["username"] = usr.Username
-    session.Save(c.ws.Request(), nil)
-    err := websocket.Message.Send(c.ws, "success")
-    if err != nil {
-        fmt.Println("session error")
+// reader for lobby websockets only
+func (c *connection) lobbyReader() {
+    for {
+        var msg Message
     }
 }
 
 // This needs to be handled
-func wsLobbyHandler(ws *websocket.Conn) {
+func wsHandler(ws *websocket.Conn) {
     fmt.Println(ws.LocalAddr());
     c := &connection{send: make(chan string, 512), ws: ws}
-    h.register <- c
-    defer func() { h.unregister <- c }()
+    globalHub.register <- c
+    defer func() { globalHub.unregister <- c }()
     go c.writer()
     c.reader()
 }
 
-func wsLoginHandler(ws *websocket.Conn) {
+// handles the websocket connections for lobbies!
+func wsLobbyHandler(ws *websocket.Conn) {
     c := &connection{send: make(chan string, 512), ws: ws}
-    //c.validateLoginCredentials()
-    fmt.Println(c)
-
+    globalHub.register <- c
+    defer func() {globalHub.unregister <- c}()
+    go c.writer()
+    c.lobbyReader()
 }
 

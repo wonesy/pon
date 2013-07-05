@@ -45,7 +45,7 @@ func (g *Game) getTileInfo() {
     }
 
     tileInfo = tileInfo + "]}"
-    h.broadcast <- tileInfo
+    globalHub.broadcast <- tileInfo
     
 }
 
@@ -57,7 +57,10 @@ func (g *Game) makeNewBoard() {
 }
 
 func (g *Game) startGame() {
-    h.broadcast <- "{\"MsgType\":\"data\",\"Func\":\"gameStarted\"}"
+    ///////////////////////////////
+    ///////////////////////////////
+    // TODO change
+    globalHub.broadcast <- "{\"MsgType\":\"data\",\"Func\":\"gameStarted\"}"
     
     //TODO: start game!
 }

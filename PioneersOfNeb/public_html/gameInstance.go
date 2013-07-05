@@ -17,7 +17,7 @@ type gameInstance struct {
 
 // holds a complete list of games created, being played, or recently completed
 type GameList struct {
-    GameList []*gameInstance
+    Games []*gameInstance
     NumGames int
 }
 
@@ -36,9 +36,21 @@ func (g *GameList) createGameInstance(creator, password string) *gameInstance {
         newGame.isProtected = true
     }
     
-    g.GameList = append(g.GameList, newGame)
+    g.Games = append(g.Games, newGame)
     g.NumGames += 1
 
     return newGame
 }
 
+func (g *GameList) getAvailableGames() []gameInstance {
+    games := make([]gameInstance, 0, g.NumGames)
+
+    // c is count, entry is the actual gameInstance
+    for _, entry := range g.Games {
+        if !(entry.isValid || entry.hasStarted) {
+            games = append(games, *entry)
+        }
+    }
+
+    return games
+}

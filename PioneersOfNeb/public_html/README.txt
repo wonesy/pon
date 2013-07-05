@@ -1,12 +1,31 @@
 requires installation of Go
 
-sudo apt-get install golang-go
+    sudo apt-get install golang-go
 
-required packages for Go are local to this folder and will be included in the git repo
+    required packages for Go are local to this folder and will be included in the git repo
+
+    set GOPATH env variable to the git folder - export GOPATH=`pwd`
+    
+requires mysql installation
+    
+    - main.go: in main function, change the following line:
+    
+    db, _ = sql.Open("mysql", "root:toor@/pioneers")
+    
+    to whatever you need to get it running
+    
+    db, _ = sql.Open("mysql", "<user>:<password>@/<database>")
 
 changes for local testing environments will be located in main.go
-    - line13: var addr = flag.String("addr", "<YOUR_LOCAL_IP_ADDRESS>:8080", "http service address")
-    - or leave that part blank, just ":8080", and it will default to "localhost:8080"
+    - line20: myURL = "some_local_ip:some_port"
+    - or leave that part blank, just ":some_port", and it will default to "localhost:port"
+    
+you must use the https URL:
+
+https://192.168.1.88:8080
     
 this is run with "go run *.go"
 you can compile it into an executable with "go build *.go"
+
+*NOTE
+after logging in, you are brought to a supremely ugly page. It is very incomplete. The only button that works is the Create Game button, which brings you to the board set up. The game is not available to play as of now. 

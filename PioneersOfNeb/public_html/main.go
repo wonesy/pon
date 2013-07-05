@@ -153,7 +153,7 @@ func validateSession(w http.ResponseWriter, r *http.Request) (bool, *sessions.Se
 func main() {
     fmt.Printf("")
     // database connectivity
-    db, _ = sql.Open("mysql", "root:Mysqlcarm44@/pioneers")
+    db, _ = sql.Open("mysql", "root:toor@/pioneers")
 	defer db.Close()
 	
 	// setting up variables for the game instances and chat connectivity

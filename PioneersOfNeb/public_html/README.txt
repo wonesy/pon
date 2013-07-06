@@ -16,6 +16,8 @@ requires mysql installation
     
     db, _ = sql.Open("mysql", "<user>:<password>@/<database>")
 
+    create table users (id INT PRIMARY KEY AUTO_INCREMENT, email VARCHAR(40), username VARCHAR(20), password VARCHAR(60), sale VARCHAR(60));
+
 changes for local testing environments will be located in main.go
     - line20: myURL = "some_local_ip:some_port"
     - or leave that part blank, just ":some_port", and it will default to "localhost:port"
